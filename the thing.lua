@@ -17,8 +17,8 @@ local Marked = {}
 
 local KeysTable = {
     ["4"] = {"Up", "Down", "Left", "Right"},
-    ["6"] = {S = "L3", D = "L2", F = "L1", J = "R1", K = "R2", L = "R3"},
-    ["7"] = {S = "L3", D = "L2", F = "L1", Space = "Space", J = "R1", K = "R2", L = "R3"},
+    ["6"] = {S = "L3", D = "L2", F = "L1", H = "R1", J = "R2", K = "R3"},
+    ["7"] = {S = "L3", D = "L2", F = "L1", Space = "Space", H = "R1", J = "R2", K = "R3"},
     ["9"] = {A = "L4", S = "L3", D = "L2", F = "L1", Space = "Space", H = "R1", J = "R2", K = "R3", L = "R4"}
 }
 
@@ -72,15 +72,16 @@ for _, ScreenGui in ipairs(PlayerGui:GetChildren()) do
 end
 
 do
-    local Window = Library:CreateWindow("Friday Night Bloxxin'") do
+    local Window = Library:CreateWindow("FNB Auto Play") do
         local Folder = Window:AddFolder("Autoplayer") do
             local Toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer" })
         end
 
-        Folder:AddLabel({text = "Bug fixes!"})
-        Folder:AddLabel({text = "Multi-key support!"})
+        Folder:AddLabel({text = "USE A S D F [Space]"})
+        Folder:AddLabel({text = "H J K L KEYBINDS OR"})
+        Folder:AddLabel({text = "THE BOT WILL NOT WORK"})
 
-        Window:AddBind({text = "Menu toggle", key = Enum.KeyCode.Delete, callback = function() Library:Close() end })
+        Window:AddBind({text = "Hide/Show", key = Enum.KeyCode.Delete, callback = function() Library:Close() end })
         Window:AddButton({text = "Instant Solo", callback = function()
             pcall(function()
                 PlayerGui.SingleplayerUI.ButtonPressed:FireServer()
