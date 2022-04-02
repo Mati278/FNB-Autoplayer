@@ -1,2 +1,4 @@
-# FNB-Autoplayer
-Reupload of Kaiden00's autoplayer for fnb bc he deleted it
+# FNB Auto Player
+A fully functional bot for https://www.roblox.com/games/7603193259
+Basically this is a reupload of the one made by Kaiden00.
+:pog:
