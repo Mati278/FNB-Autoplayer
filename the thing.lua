@@ -77,6 +77,7 @@ do
             local Toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer" })
         end
 
+        Folder:AddLabel({text = "FOR MULTI KEYS:"})
         Folder:AddLabel({text = "USE A S D F [Space]"})
         Folder:AddLabel({text = "H J K L KEYBINDS OR"})
         Folder:AddLabel({text = "THE BOT WILL NOT WORK"})
