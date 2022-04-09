@@ -78,9 +78,10 @@ do
         end
 
         local Folder = Window:AddFolder("Some things") do
-            Folder:AddLabel({text = "i broke autoplayer on"})
-            Folder:AddLabel({text = "the multi key songs."})
-            Folder:AddLabel({text = "im sorry."})
+            Folder:AddLabel({text = "i fixed multi keys!!!"})
+            Folder:AddLabel({text = "And also added compatiblility"})
+            Folder:AddLabel({text = "to spacebar mechanics!"})
+            Folder:AddLabel({text = "(ex. Termination, Die Trols)"})
         end
 
         Window:AddBind({text = "Hide/Show", key = Enum.KeyCode.Delete, callback = function() Library:Close() end })
