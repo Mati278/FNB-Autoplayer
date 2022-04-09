@@ -79,7 +79,7 @@ do
 
         local Folder = Window:AddFolder("Some things") do
             Folder:AddLabel({text = "i fixed multi keys!!!"})
-            Folder:AddLabel({text = "And also added compatiblility"})
+            Folder:AddLabel({text = "Also added compatiblility"})
             Folder:AddLabel({text = "to spacebar mechanics!"})
             Folder:AddLabel({text = "(ex. Termination, Die Trols)"})
         end
