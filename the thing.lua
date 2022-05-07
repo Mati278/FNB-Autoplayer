@@ -101,7 +101,7 @@ end))
 
 Window:AddLabel({text = "Bypassed tash anti!"})
 Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
-Window:AddBind({text = "AP toggle", key = Enum.KeyCode.Delete, callback = function() Library.flags.AutoPlayer end})
+Window:AddBind({text = "AP toggle", key = Enum.KeyCode.Delete, callback = function() Library:Flags(AutoPlayer) end})
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
