@@ -99,8 +99,10 @@ local OldNameCall; OldNameCall = hookmetamethod(game, "__namecall", newcclosure(
     return OldNameCall(self, ...)
 end))
 
+local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
+
 Window:AddLabel({text = "Bypassed tash anti!"})
-Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
+Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
