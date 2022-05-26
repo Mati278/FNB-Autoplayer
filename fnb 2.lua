@@ -48,7 +48,7 @@ RunService.Heartbeat:Connect(function()
 
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
 
-            if Difference < 0.35 and not IsHell then
+            if Difference < 2 and not IsHell then
                 Marked[#Marked + 1] = Object
 
                 InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
