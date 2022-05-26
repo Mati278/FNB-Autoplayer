@@ -54,12 +54,21 @@ RunService.Heartbeat:Connect(function()
             local Difference = not InputFolder.Downscroll.Value and (Current - Start) or (Start - Current)
             
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
-            
-            if Difference <= 0.35 and not IsHell then
+
+            if Difference < 0.3 and Library.flags.SpecialNotes then
                 Marked[#Marked + 1] = Object
                 InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
                 repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
                 InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+            end
+            
+            if Difference < 0.3 and not IsHell then
+                if not Library.flags.SpecialNotes then
+                    Marked[#Marked + 1] = Object
+                    InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
+                    repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
+                    InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+                end
             end
         end
     end 
@@ -103,6 +112,10 @@ local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
 
 Window:AddLabel({text = "Bypassed tash anti!"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
+
+local Special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
+
+Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode.PageDown, callback = function() Special:SetState(not Special.state) end})
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
