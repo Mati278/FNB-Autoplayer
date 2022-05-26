@@ -110,7 +110,7 @@ end))
 
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
 
-Window:AddLabel({text = "Bypassed tash anti!"})
+Window:AddLabel({text = "Multi keys broke smh"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local Special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
