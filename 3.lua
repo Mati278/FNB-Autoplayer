@@ -74,6 +74,40 @@ RunService.Heartbeat:Connect(function()
     end 
 end)
 
+if type(getinfo) ~= 'function' then
+    local debug_info = debug.info;
+    if type(debug_info) ~= 'function' then
+        -- if your exploit doesnt have getrenv you have no hope
+        if type(getrenv) ~= 'function' then return fail('Unsupported exploit (missing "getrenv")') end
+        debug_info = getrenv().debug.info
+    end
+    getinfo = function(f)
+        assert(type(f) == 'function', string.format('Invalid argument #1 to debug.getinfo (expected %s got %s', 'function', type(f)))
+        local results = { debug.info(f, 'slnfa') }
+        local _, upvalues = pcall(getupvalues, f)
+        if type(upvalues) ~= 'table' then
+            upvalues = {}
+        end
+        local nups = 0
+        for k in next, upvalues do
+            nups = nups + 1
+        end
+        -- winning code
+        return {
+            source      = '@' .. results[1],
+            short_src   = results[1],
+            what        = results[1] == '[C]' and 'C' or 'Lua',
+            currentline = results[2],
+            name        = results[3],
+            func        = results[4],
+            numparams   = results[5],
+            is_vararg   = results[6], -- 'a' argument returns 2 values :)
+            nups        = nups,     
+        }
+    end
+end
+
+
 local framework, scrollHandler, network
 local counter = 0
 
