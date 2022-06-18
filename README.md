@@ -15,6 +15,27 @@ Basically this is a reupload (and a tweaked version) of the one made by Kaiden00
 # Extra info
 
 guys i got the whole fnb dev team mad at me 💀
+‫
+
+
+‫‫‫
+‫
+‫‫‫
+
+
+‫‫‫
+
+‫‫‫
+
+v
+v
+
+
+
+‫‫‫
+‫
+‫
+‫‫‫
 
 
 
@@ -25,59 +46,34 @@ guys i got the whole fnb dev team mad at me 💀
 
 
 
+‫
+
+
+‫‫
+‫
+
+
+
+‫
+‫
+
+‫v‫‫‫
+
+
+
+‫‫‫
+
+
+‫
 
 
 
 
+‫‫‫‫‫‫‫
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+c‫
+‫‫
 
 
 
