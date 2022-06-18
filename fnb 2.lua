@@ -4,6 +4,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local InputManager = game:GetService("VirtualInputManager")
 local InputService = game:GetService("UserInputService")
+local HttpService = game:GetService('HttpService')
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))() --credits to Jan
 
@@ -58,7 +59,7 @@ RunService.Heartbeat:Connect(function()
             if Difference < 0.3 and Library.flags.SpecialNotes then
                 Marked[#Marked + 1] = Object
                 InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                repeat task.wait() until not Object or not Object:FindFirstChild("Frame")
+                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
                 InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
             end
             
@@ -66,7 +67,7 @@ RunService.Heartbeat:Connect(function()
                 if not Library.flags.SpecialNotes then
                     Marked[#Marked + 1] = Object
                     InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                    repeat task.wait() until not Object or not Object:FindFirstChild("Frame")
+                    repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
                     InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
                 end
             end
@@ -100,17 +101,12 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
     return Old(self, ...)
 end))
 
-local OldNameCall; OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-    if getnamecallmethod() == "FireServer" and tostring(self) == "RemoteEvent" and self:IsDescendantOf(game:GetService("ReplicatedStorage").Events) then
-        return wait(9e9)
-    end
-    
-    return OldNameCall(self, ...)
-end))
 
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
 
-Window:AddLabel({text = "Multi keys broke smh"})
+Window:AddLabel({text = "FNB deleted their tash anti lol"})
+Window:AddLabel({text = "So settings are fixed finally"})
+Window:AddLabel({text = "Also u can change anims"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local Special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
@@ -120,6 +116,15 @@ Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = f
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
 CreditsFolder:AddLabel({text = "UI Library: Jan"})
+
+Window:AddButton({ text = 'Unload script', callback = function() 
+    HttpService:GenerateGUID(false)
+    if Library.open then Library:Close() end
+    pcall(RunService.UnbindFromRenderStep, RunService, shared._id)
+    RunService:ClearAllChildren()
+    Library.base:ClearAllChildren()
+    Library.base:Destroy()
+end })
 
 Window:AddButton({text = "Instant Solo", callback = function()
     pcall(function()
