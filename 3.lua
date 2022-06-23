@@ -13,176 +13,172 @@ local PlayerGui = Client:WaitForChild("PlayerGui")
 local InputFolder = Client:WaitForChild("Input")
 local Keybinds = InputFolder:WaitForChild("Keybinds")
 
-local KeysTable = {
-    ["4"] = {"Up", "Down", "Left", "Right"},
-    ["6"] = {S = "L3", D = "L2", F = "L1", J = "R1", K = "R2", L = "R3"},
-    ["7"] = {S = "L3", D = "L2", F = "L1", Space = "Space", J = "R1", K = "R2", L = "R3"},
-    ["9"] = {A = "L4", S = "L3", D = "L2", F = "L1", Space = "Space", H = "R1", J = "R2", K = "R3", L = "R4"}
-}
+local Notify = function(Title,Text,Duration)game:GetService'StarterGui':SetCore("SendNotification",{Title=Title,Text=Text,Duration=Duration or 1})end
 
-local Marked = {}
+local Window = Library:CreateWindow'MMM Autoplayer'
 
-local Window = Library:CreateWindow("FNB Auto Play") 
-local Folder = Window:AddFolder("Autoplayer") 
+-- Toggles = {
+local toggle = Window:AddToggle({text = "AutoPlayer", flag = "AP"})
+Window:AddBind({ text = 'Autoplayer toggle', flag = 'AP', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
+-- }
 
-local CreditsFolder = Window:AddFolder("Credits")
+-- Buttons = {
+Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
+Window:AddButton{text = "Unload script", callback = function()pcall(function()game:GetService'CoreGui'.ScreenGui:Destroy()end)end}
+Window:AddButton{text = "Copy discord invite",
 
-RunService.Heartbeat:Connect(function()
-    if not Library.flags.AutoPlayer then return end
-    if not Menu or not Menu.Parent then return end
-    if Menu.Config.TimePast.Value <= 0 then return end
-    
-    local SideMenu = Menu.Game:FindFirstChild(Menu.PlayerSide.Value)
-    local IncomingNotes = SideMenu.Arrows.IncomingNotes
-    
-    local Keys = KeysTable[tostring(#IncomingNotes:GetChildren())] or IncomingNotes:GetChildren()
-    
-    for Key, Direction in pairs(Keys) do 
-        Direction = tostring(Direction)
-        
-        local Holder = IncomingNotes:FindFirstChild(Direction) or IncomingNotes:FindFirstChild(Key)
-        if not Holder then continue end
-        
-        for _, Object in ipairs(Holder:GetChildren()) do 
-            if table.find(Marked, Object) then continue end
-            
-            local Keybind = Keybinds:FindFirstChild(Direction) and Keybinds[Direction].Value
-            if not Keybind then warn("Couldn't find bind!") continue end
-            
-            local Start = SideMenu.Arrows:FindFirstChild(Direction) and SideMenu.Arrows[Direction].AbsolutePosition.Y or SideMenu.Arrows[Key].AbsolutePosition.Y
-            local Current = Object.AbsolutePosition.Y
-            local Difference = not InputFolder.Downscroll.Value and (Current - Start) or (Start - Current)
-            
-            local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
+Window:AddLabel{text = "AP by stavratum#6591"}
+Window:AddLabel{text = "UI and configs by cup#7282"}
+-- }
 
-            if Difference < 0.3 and Library.flags.SpecialNotes then
-                Marked[#Marked + 1] = Object
-                InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
-            end
-            
-            if Difference < 0.3 and not IsHell then
-                if not Library.flags.SpecialNotes then
-                    Marked[#Marked + 1] = Object
-                    InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                    repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                    InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
-                end
+uwuware:Init()  --<< initializing ip logger
+
+-- }
+
+-- AP Variables = {
+local MainGui = Client.PlayerGui.ScreenGui.MainGui
+-- }
+
+-- AP Functions = {
+local Background = function()
+  for i,v in pairs(MainGui:GetDescendants())do
+    if v.Name == "Background"then return v end
+  end
+  return nil
+end
+local Side = function()
+    for _,v in next,Background():GetDescendants() do
+        if v:FindFirstChild'Username' and v.Username.Text==Client.DisplayName then
+            if v.AbsolutePosition.X < Client:GetMouse().ViewSizeX/2 then
+              return "Left"
+            else
+              return "Right"
             end
         end
+    end
+    return nil
+end
+local ArrowGui= function()
+  for _,v in pairs(MainGui:GetDescendants())do
+    if v.Name == "ArrowGui"then return v end
+  end
+  return nil
+end
+local FakeContainer=function(_)
+  if ArrowGui() and ArrowGui():FindFirstChild(_) then
+    for i,v in next,ArrowGui()[_]:GetDescendants()do
+      if v.Name=='FakeContainer'then return v end
+    end
+  end
+  return nil
+end
+local ScrollType = function(_)
+  repeat wait() until FakeContainer(_)and #FakeContainer(_):children()>0
+    if FakeContainer(_):children()[1].AbsolutePosition.Y < Client:GetMouse().ViewSizeY/2 then 
+        return "Upscroll"
+    else 
+        return "Downscroll"
+    end
+  return nil
+end
+local Init = function(Side)
+    repeat wait()until ArrowGui()
+    repeat wait()until ArrowGui():FindFirstChild(Side)
+    local Arrows = ArrowGui()[Side]
+    repeat wait()until #Arrows:WaitForChild'Notes':children()>0
+    repeat wait()until FakeContainer(Side)and Arrows.Notes and #Arrows.Notes:children()>0
+    local Keys = _G.Controls[#Arrows.Notes:children()]
+    local Y = FakeContainer(Side).Down.AbsolutePosition.Y
+    for i,v in pairs(Arrows.Notes:children())do
+        if ScrollType(Side)=="Downscroll"then
+            v.ChildAdded:Connect(function(_)
+                repeat task.wait() until _.AbsolutePosition.Y>=Y
+                if Library.flags.AP then
+                    game:GetService'VirtualInputManager':SendKeyEvent(true,Enum.KeyCode[Keys[_.Parent.Name]],false,nil)
+                    if #Arrows.LongNotes[_.Parent.Name]:children()==0 then 
+                        game:GetService'VirtualInputManager':SendKeyEvent(false,Enum.KeyCode[Keys[_.Parent.Name]],false,nil)
+                    end
+                end
+            end)
+        else
+            v.ChildAdded:Connect(function(_)
+                repeat task.wait() until _.AbsolutePosition.Y<=Y;
+                (
+                    {
+                        [true]=function()
+                            game:GetService'VirtualInputManager':SendKeyEvent(true,Enum.KeyCode[Keys[_.Parent.Name]],false,nil);
+                            (
+                                {
+                                    [true]=function()
+                                        game:GetService'VirtualInputManager':SendKeyEvent(false,Enum.KeyCode[Keys[_.Parent.Name]],false,nil);
+                                    end;
+                                    [false]=function()end;
+                                }
+                            )[#Arrows.LongNotes[_.Parent.Name]:children()==0]();
+                        end;
+                        [false]=function()end;
+                    }
+                )[uwuware.flags.AP]();
+            end)
+        end
+    end
+    for i,v in pairs(ArrowGui()[Side].LongNotes:children())do
+        if ScrollType(Side)=="Downscroll"then
+            v.ChildAdded:Connect(function(sustainNote)
+                repeat task.wait() until not sustainNote.Visible
+                game:GetService'VirtualInputManager':SendKeyEvent(false,Enum.KeyCode[Keys[sustainNote.Parent.Name]],false,nil)
+                sustainNote:Destroy() 
+            end)
+        else
+            v.ChildAdded:Connect(function(sustainNote)
+                repeat task.wait() until not sustainNote.Visible
+                game:GetService'VirtualInputManager':SendKeyEvent(false,Enum.KeyCode[Keys[sustainNote.Parent.Name]],false,nil)
+                sustainNote:Destroy() 
+            end)
+        end
+    end
+end
+-- }
+
+-- End = {
+
+if ArrowGui()and Background()then
+  Init(Side()) --grabbing btc wallet
+end
+
+MainGui.ChildAdded:Connect(function(_)
+    if _.Name == "ArrowGui" then
+        repeat wait() until Background()
+        Init(Side())
+    end
+end)
+
+-- }
+
+    
+PlayerGui.ChildAdded:Connect(function(Object)
+    if Object:IsA("ScreenGui") and Object:FindFirstChild("Game") then
+        table.clear(Marked)
+        getgenv().Menu = Object
     end 
 end)
 
-if type(getinfo) ~= 'function' then
-    local debug_info = debug.info;
-    if type(debug_info) ~= 'function' then
-        -- if your exploit doesnt have getrenv you have no hope
-        if type(getrenv) ~= 'function' then return fail('Unsupported exploit (missing "getrenv")') end
-        debug_info = getrenv().debug.info
-    end
-    getinfo = function(f)
-        assert(type(f) == 'function', string.format('Invalid argument #1 to debug.getinfo (expected %s got %s', 'function', type(f)))
-        local results = { debug.info(f, 'slnfa') }
-        local _, upvalues = pcall(getupvalues, f)
-        if type(upvalues) ~= 'table' then
-            upvalues = {}
-        end
-        local nups = 0
-        for k in next, upvalues do
-            nups = nups + 1
-        end
-        -- winning code
-        return {
-            source      = '@' .. results[1],
-            short_src   = results[1],
-            what        = results[1] == '[C]' and 'C' or 'Lua',
-            currentline = results[2],
-            name        = results[3],
-            func        = results[4],
-            numparams   = results[5],
-            is_vararg   = results[6], -- 'a' argument returns 2 values :)
-            nups        = nups,     
-        }
-    end
+for _, ScreenGui in ipairs(PlayerGui:GetChildren()) do
+    if not ScreenGui:FindFirstChild("Game") then continue end
+    getgenv().Menu = ScreenGui
 end
 
 
-local framework, scrollHandler, network
-local counter = 0
+local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, ...)
+    local Args = {...}
+    local Property = Args[1]
 
-while true do
-    for _, obj in next, getgc(true) do
-        if type(obj) == 'table' then 
-            if rawget(obj, 'GameUI') then
-                framework = obj;
-            elseif type(rawget(obj, 'Server')) == 'table' then
-                network = obj;     
-            end
-        end
+    if not Client.Character then return end
+    local Humanoid = Client.Character:FindFirstChild("Humanoid")
+    if not Humanoid then return end
 
-        if network and framework then break end
-    end
-
-    for _, module in next, getloadedmodules() do
-        if module.Name == 'ScrollHandler' then
-            scrollHandler = module;
-            break;
-        end
-    end 
-
-    if (type(framework) == 'table' and typeof(scrollHandler) == 'Instance' and type(network) == 'table') then
-        break
-    end
-
-    counter = counter + 1
-    if counter > 6 then
-        fail(string.format('Failed to load game dependencies. Details: %s, %s, %s', type(framework), typeof(scrollHandler), type(network)))
-    end
-    wait(1)
-end
-
-local fireSignal, rollChance do
-    -- updated for script-ware or whatever
-    -- attempted to update for krnl
-
-    function fireSignal(target, signal, ...)
-        -- getconnections with InputBegan / InputEnded does not work without setting Synapse to the game's context level
-        set_identity(2)
-        local didFire = false
-        for _, signal in next, getconnections(signal) do
-            if type(signal.Function) == 'function' and islclosure(signal.Function) then
-                local scr = rawget(getfenv(signal.Function), 'script')
-                if scr == target then
-                    didFire = true
-                    pcall(signal.Function, ...)
-                end
-            end
-        end
-        -- if not didFire then fail"couldnt fire input signal" end
-        set_identity(7)
-    end
-end
-
-local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
-
-Window:AddLabel({text = "Bypassed tash anti!"})
-Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
-
-local Special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
-
-Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode.PageDown, callback = function() Special:SetState(not Special.state) end})
-Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
-
-CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
-CreditsFolder:AddLabel({text = "UI Library: Jan"})
-
-Window:AddButton({text = "Instant Solo", callback = function()
-    pcall(function()
-        PlayerGui.SingleplayerUI.ButtonPressed:FireServer()
-    end)
-end})
-
-Library:Init()
-
-warn("Loaded script!")
+    if self == Humanoid and Property == "Health" and not checkcaller() then return end 
+    
+    return Old(self, ...)
+end))
+    
