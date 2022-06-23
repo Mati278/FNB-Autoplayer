@@ -63,13 +63,11 @@ RunService.Heartbeat:Connect(function()
                 InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
             end
             
-            if Difference < 0.3 and not IsHell then
-                if not Library.flags.SpecialNotes then
-                    Marked[#Marked + 1] = Object
-                    InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                    repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                    InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
-                end
+            if Difference < 0.3 and not IsHell and not Library.flags.SpecialNotes then
+               Marked[#Marked + 1] = Object
+               InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
+               repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
+               InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
             end
         end
     end 
