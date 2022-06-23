@@ -34,14 +34,14 @@ RunService.Heartbeat:Connect(function()
     if Menu.Config.TimePast.Value <= 0 then return end
     
     local SideMenu = Menu.Game:FindFirstChild(Menu.PlayerSide.Value)
-    local IncomingArrows = SideMenu.Arrows.IncomingArrows
+    local IncomingNotes = SideMenu.Arrows.IncomingNotes
     
-    local Keys = KeysTable[tostring(#IncomingArrows:GetChildren())] or IncomingArrows:GetChildren()
+    local Keys = KeysTable[tostring(#IncomingNotes:GetChildren())] or IncomingNotes:GetChildren()
     
     for Key, Direction in pairs(Keys) do 
         Direction = tostring(Direction)
         
-        local Holder = IncomingArrows:FindFirstChild(Direction) or IncomingArrows:FindFirstChild(Key)
+        local Holder = IncomingNotes:FindFirstChild(Direction) or IncomingNotes:FindFirstChild(Key)
         if not Holder then continue end
         
         for _, Object in ipairs(Holder:GetChildren()) do 
