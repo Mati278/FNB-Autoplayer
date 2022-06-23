@@ -34,14 +34,14 @@ RunService.Heartbeat:Connect(function()
     if Menu.Config.TimePast.Value <= 0 then return end
     
     local SideMenu = Menu.Game:FindFirstChild(Menu.PlayerSide.Value)
-    local IncomingNotes = SideMenu.Arrows.IncomingNotes
+    local IncomingArrows = SideMenu.Arrows.IncomingArrows
     
-    local Keys = KeysTable[tostring(#IncomingNotes:GetChildren())] or IncomingNotes:GetChildren()
+    local Keys = KeysTable[tostring(#IncomingArrows:GetChildren())] or IncomingArrows:GetChildren()
     
     for Key, Direction in pairs(Keys) do 
         Direction = tostring(Direction)
         
-        local Holder = IncomingNotes:FindFirstChild(Direction) or IncomingNotes:FindFirstChild(Key)
+        local Holder = IncomingArrows:FindFirstChild(Direction) or IncomingArrows:FindFirstChild(Key)
         if not Holder then continue end
         
         for _, Object in ipairs(Holder:GetChildren()) do 
@@ -63,11 +63,11 @@ RunService.Heartbeat:Connect(function()
                 InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
             end
             
-            if Difference < 0.3 and not IsHell and not Library.flags.SpecialNotes then
-               Marked[#Marked + 1] = Object
-               InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-               repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-               InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+            if Difference < 0.3 and not IsHell then
+                Marked[#Marked + 1] = Object
+                InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
+                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
+                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
             end
         end
     end 
@@ -100,11 +100,10 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
 end))
 
 
-local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
+local toggle = Folder:AddToggle({text = "Disable autoplayer", flag = "AutoPlayer"})
 
-Window:AddLabel({text = "FNB deleted their tash anti lol"})
-Window:AddLabel({text = "So settings are fixed finally"})
-Window:AddLabel({text = "Also u can change anims"})
+Window:AddLabel({text = "Autoplay now enabled by default"})
+Window:AddLabel({text = "Also lag in restart is less heavy"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local Special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
