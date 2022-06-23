@@ -46,18 +46,9 @@ local Background = function()
   end
   return nil
 end
-local Side = function()
-    for _,v in next,Background():GetDescendants() do
-        if v:FindFirstChild'Username' and v.Username.Text==Client.DisplayName then
-            if v.AbsolutePosition.X < Client:GetMouse().ViewSizeX/2 then
-              return "Left"
-            else
-              return "Right"
-            end
-        end
-    end
-    return nil
-end
+
+local Side = Menu.Game:FindFirstChild(Menu.PlayerSide.Value) then return end
+  
 local ArrowGui= function()
   for _,v in pairs(MainGui:GetDescendants())do
     if v.Name == "ArrowGui"then return v end
@@ -84,7 +75,7 @@ end
 local Init = function(Side)
     repeat wait()until ArrowGui()
     repeat wait()until ArrowGui():FindFirstChild(Side)
-    local Arrows = ArrowGui()[Side]
+    local Arrows = Side.Arrows.IncomingNotes
     repeat wait()until #Arrows:WaitForChild'Notes':children()>0
     repeat wait()until FakeContainer(Side)and Arrows.Notes and #Arrows.Notes:children()>0
     local Keys = _G.Controls[#Arrows.Notes:children()]
