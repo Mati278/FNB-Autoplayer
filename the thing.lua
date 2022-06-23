@@ -64,10 +64,12 @@ RunService.Heartbeat:Connect(function()
             end
             
             if Difference < 0.3 and not IsHell then
-                Marked[#Marked + 1] = Object
-                InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+                if not Library.flags.SpecialNotes then
+                    Marked[#Marked + 1] = Object
+                    InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
+                    repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
+                    InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+                end
             end
         end
     end 
@@ -99,16 +101,18 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
     return Old(self, ...)
 end))
 
+if Library.flags.AutoPlayer then
+    Library.flags.SpecialNotes = false
+end
 
-local toggle = Folder:AddToggle({text = "Disable autoplayer", flag = "AutoPlayer"})
+local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
 
 Window:AddLabel({text = "Autoplay now enabled by default"})
 Window:AddLabel({text = "Also lag in restart is less heavy"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
-local Special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
+Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
 
-Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode.PageDown, callback = function() Special:SetState(not Special.state) end})
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
