@@ -64,12 +64,10 @@ RunService.Heartbeat:Connect(function()
             end
             
             if Difference < 0.3 and not IsHell then
-                if not Library.flags.SpecialNotes then
-                    Marked[#Marked + 1] = Object
-                    InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                    repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                    InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
-                end
+                Marked[#Marked + 1] = Object
+                InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
+                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
+                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
             end
         end
     end 
@@ -102,11 +100,10 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
 end))
 
 
-local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
+local toggle = Folder:AddToggle({text = "Disable autoplayer", flag = "AutoPlayer"})
 
-Window:AddLabel({text = "FNB deleted their tash anti lol"})
-Window:AddLabel({text = "So settings are fixed finally"})
-Window:AddLabel({text = "Also u can change anims"})
+Window:AddLabel({text = "Autoplay now enabled by default"})
+Window:AddLabel({text = "Also lag in restart is less heavy"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local Special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
