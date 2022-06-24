@@ -6,7 +6,7 @@ local InputManager = game:GetService("VirtualInputManager")
 local InputService = game:GetService("UserInputService")
 local HttpService = game:GetService('HttpService')
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/OPENCUP/random-texts/main/stolen_ui_lib.lua"))() --credits to Jan
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))() --credits to Jan
 
 local Client = game:GetService("Players").LocalPlayer
 local PlayerGui = Client:WaitForChild("PlayerGui")
@@ -117,7 +117,7 @@ Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
-CreditsFolder:AddLabel({text = "UI Library: Jan & Cup"})
+CreditsFolder:AddLabel({text = "UI Library: Jan"})
 
 Window:AddButton({ text = 'Unload script', callback = function() 
     HttpService:GenerateGUID(false)
