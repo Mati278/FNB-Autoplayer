@@ -6,7 +6,7 @@ local InputManager = game:GetService("VirtualInputManager")
 local InputService = game:GetService("UserInputService")
 local HttpService = game:GetService('HttpService')
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))() --credits to Jan
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/OPENCUP/random-texts/main/stolen_ui_lib.lua"))() --credits to Jan
 
 local Client = game:GetService("Players").LocalPlayer
 local PlayerGui = Client:WaitForChild("PlayerGui")
@@ -111,12 +111,13 @@ Window:AddLabel({text = "Autoplay now enabled by default"})
 Window:AddLabel({text = "Also lag in restart is less heavy"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
-Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
+local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
+Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode.PageDown, callback = function() special:SetState(not special.state) end})
 
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
-CreditsFolder:AddLabel({text = "UI Library: Jan"})
+CreditsFolder:AddLabel({text = "UI Library: Jan & Cup"})
 
 Window:AddButton({ text = 'Unload script', callback = function() 
     HttpService:GenerateGUID(false)
