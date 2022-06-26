@@ -1,3 +1,5 @@
+local debug = true
+
 if not game:IsLoaded() then game.Loaded:Wait() end 
 
 local Players = game:GetService("Players")
@@ -19,6 +21,7 @@ local KeysTable = {
     ["6"] = {S = "L3", D = "L2", F = "L1", J = "R1", K = "R2", L = "R3"},
     ["7"] = {S = "L3", D = "L2", F = "L1", Space = "Space", J = "R1", K = "R2", L = "R3"},
     ["9"] = {A = "L4", S = "L3", D = "L2", F = "L1", Space = "Space", H = "R1", J = "R2", K = "R3", L = "R4"}
+
 }
 
 local Marked = {}
@@ -29,6 +32,12 @@ local Folder = Window:AddFolder("Autoplayer")
 local CreditsFolder = Window:AddFolder("Credits")
 
 RunService.Heartbeat:Connect(function()
+    for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerScripts:GetDescendants()) do
+        if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
+          v:Destroy()
+        end
+      end
+    
     if not Library.flags.AutoPlayer then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
@@ -101,21 +110,14 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
     return Old(self, ...)
 end))
 
-local OldNameCall; OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-    if getnamecallmethod() == "FireServer" and tostring(self) == "RemoteEvent" and self:IsDescendantOf(game:GetService("ReplicatedStorage").Events) then
-        return wait(9e9)
-    end
-    
-    return OldNameCall(self, ...)
-end))
-
 if Library.flags.AutoPlayer then
     Library.flags.SpecialNotes = false
 end
 
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
 
-Window:AddLabel({text = "goddamn why me"})
+Window:AddLabel({text = "Autoplay now enabled by default"})
+Window:AddLabel({text = "Also lag in restart is less heavy"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
@@ -124,7 +126,8 @@ Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
-CreditsFolder:AddLabel({text = "UI Library: Jan"})
+CreditsFolder:AddLabel({text = "Thanks to KiwisASkid 4 help"})
+CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
 
 Window:AddButton({ text = 'Unload script', callback = function() 
     HttpService:GenerateGUID(false)
@@ -134,6 +137,20 @@ Window:AddButton({ text = 'Unload script', callback = function()
     Library.base:ClearAllChildren()
     Library.base:Destroy()
 end })
+
+if debug == true then
+    Window:AddButton({text = "Rejoin", callback = function()
+        pcall(function()
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game:GetService("Players").LocalPlayer)
+        end)
+    end})
+end
+
+Window:AddButton({text = "Redeem Codes", callback = function()
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/o5u3/Friday-Night-Bloxxin-Autoplayer/main/RedeemCodes.lua"))()
+    end)
+end})
 
 Window:AddButton({text = "Instant Solo", callback = function()
     pcall(function()
