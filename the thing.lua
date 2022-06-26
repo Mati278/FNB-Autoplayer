@@ -1,3 +1,5 @@
+--needed to post explanation lol
+
 local debug = true
 
 if not game:IsLoaded() then game.Loaded:Wait() end 
