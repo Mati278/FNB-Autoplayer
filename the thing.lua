@@ -116,8 +116,7 @@ end
 
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
 
-Window:AddLabel({text = "Autoplay now enabled by default"})
-Window:AddLabel({text = "Also lag in restart is less heavy"})
+Window:AddLabel({text = "Bypassed tash anti (yet again)"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
