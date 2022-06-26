@@ -36,7 +36,7 @@ RunService.Heartbeat:Connect(function()
         if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
           v:Destroy()
         end
-      end
+    end
     
     if not Library.flags.AutoPlayer then return end
     if not Menu or not Menu.Parent then return end
