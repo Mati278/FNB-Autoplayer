@@ -1,6 +1,4 @@
---needed to post explanation lol
 
-local debug = true
 
 if not game:IsLoaded() then game.Loaded:Wait() end 
 
@@ -139,14 +137,6 @@ Window:AddButton({ text = 'Unload script', callback = function()
     Library.base:ClearAllChildren()
     Library.base:Destroy()
 end })
-
-if debug == true then
-    Window:AddButton({text = "Rejoin", callback = function()
-        pcall(function()
-            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game:GetService("Players").LocalPlayer)
-        end)
-    end})
-end
 
 Window:AddButton({text = "Redeem Codes", callback = function()
     pcall(function()
