@@ -101,14 +101,21 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
     return Old(self, ...)
 end))
 
+local OldNameCall; OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+    if getnamecallmethod() == "FireServer" and tostring(self) == "RemoteEvent" and self:IsDescendantOf(game:GetService("ReplicatedStorage").Events) then
+        return wait(9e9)
+    end
+    
+    return OldNameCall(self, ...)
+end))
+
 if Library.flags.AutoPlayer then
     Library.flags.SpecialNotes = false
 end
 
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
 
-Window:AddLabel({text = "Autoplay now enabled by default"})
-Window:AddLabel({text = "Also lag in restart is less heavy"})
+Window:AddLabel({text = "goddamn why me"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
