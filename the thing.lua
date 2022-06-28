@@ -14,6 +14,10 @@ local Client = game:GetService("Players").LocalPlayer
 local PlayerGui = Client:WaitForChild("PlayerGui")
 
 local InputFolder = Client:WaitForChild("Input")
+
+local OldNameCall
+local LP = Players.LocalPlayer
+
 local Keybinds = InputFolder:WaitForChild("Keybinds")
 
 local KeysTable = {
@@ -32,52 +36,55 @@ local Folder = Window:AddFolder("Autoplayer")
 local CreditsFolder = Window:AddFolder("Credits")
 
 RunService.Heartbeat:Connect(function()
-    for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerScripts:GetDescendants()) do
+   
+    for i, v in pairs(LP.PlayerScripts:GetDescendants()) do
         if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
-          v:Destroy()
+            v:Destroy()
         end
     end
-    
+
     if not Library.flags.AutoPlayer then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
     
     local SideMenu = Menu.Game:FindFirstChild(Menu.PlayerSide.Value)
-    local IncomingNotes = SideMenu.Arrows.IncomingNotes
+    local IncomingArrows = SideMenu.Arrows.IncomingNotes
+
+    local Keys = KeysTable[tostring(#IncomingArrows:GetChildren())] or IncomingArrows:GetChildren()
     
-    local Keys = KeysTable[tostring(#IncomingNotes:GetChildren())] or IncomingNotes:GetChildren()
-    
-    for Key, Direction in pairs(Keys) do 
+    for Key, Direction in pairs(Keys) do
         Direction = tostring(Direction)
-        
-        local Holder = IncomingNotes:FindFirstChild(Direction) or IncomingNotes:FindFirstChild(Key)
-        if not Holder then continue end
-        
-        for _, Object in ipairs(Holder:GetChildren()) do 
+
+        local ArrowsHolder = IncomingArrows:FindFirstChild(Direction) or IncomingArrows:FindFirstChild(Key)
+        if not ArrowsHolder then continue end
+
+        for _, Object in ipairs(ArrowsHolder:GetChildren()) do
             if table.find(Marked, Object) then continue end
-            
             local Keybind = Keybinds:FindFirstChild(Direction) and Keybinds[Direction].Value
-            if not Keybind then warn("Couldn't find bind!") continue end
-            
+
             local Start = SideMenu.Arrows:FindFirstChild(Direction) and SideMenu.Arrows[Direction].AbsolutePosition.Y or SideMenu.Arrows[Key].AbsolutePosition.Y
             local Current = Object.AbsolutePosition.Y
             local Difference = not InputFolder.Downscroll.Value and (Current - Start) or (Start - Current)
-            
-            local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
 
-            if Difference < 0.3 and Library.flags.SpecialNotes then
-                Marked[#Marked + 1] = Object
-                InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
-            end
+            local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
             
-            if Difference < 0.3 and not IsHell then
-                if not Library.flags.SpecialNotes then
+            if Difference < 0.3 and Library.flags.SpecialNotes then
+                if not SN then
                     Marked[#Marked + 1] = Object
                     InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
                     repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
                     InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+                end
+            end
+                            
+            if Difference < 0.3 and not IsHell then
+                if not SN then
+                    if not Library.flags.SpecialNotes then
+                        Marked[#Marked + 1] = Object
+                        InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
+                        repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
+                        InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+                    end
                 end
             end
         end
@@ -110,13 +117,22 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
     return Old(self, ...)
 end))
 
+OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...) 
+    local method = getnamecallmethod()
+    if method == "Kick" and Self == LP then 
+        return
+    end
+    return OldNameCall(Self, ...)
+end)
+
 if Library.flags.AutoPlayer then
     Library.flags.SpecialNotes = false
 end
 
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
 
-Window:AddLabel({text = "Bypassed tash anti (yet again)"})
+Window:AddLabel({text = "Actually bypassed tash anti"})
+Window:AddLabel({text = "Sup hi yfs very cool"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
