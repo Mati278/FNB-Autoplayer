@@ -6,7 +6,6 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local InputManager = game:GetService("VirtualInputManager")
 local InputService = game:GetService("UserInputService")
-local HttpService = game:GetService('HttpService')
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))() --credits to Jan
 
@@ -48,24 +47,26 @@ RunService.Heartbeat:Connect(function()
     if Menu.Config.TimePast.Value <= 0 then return end
     
     local SideMenu = Menu.Game:FindFirstChild(Menu.PlayerSide.Value)
-    local IncomingArrows = SideMenu.Arrows.IncomingNotes
-
-    local Keys = KeysTable[tostring(#IncomingArrows:GetChildren())] or IncomingArrows:GetChildren()
+    local IncomingNotes = SideMenu.Arrows.IncomingNotes
     
-    for Key, Direction in pairs(Keys) do
+    local Keys = KeysTable[tostring(#IncomingNotes:GetChildren())] or IncomingNotes:GetChildren()
+    
+    for Key, Direction in pairs(Keys) do 
         Direction = tostring(Direction)
-
-        local ArrowsHolder = IncomingArrows:FindFirstChild(Direction) or IncomingArrows:FindFirstChild(Key)
-        if not ArrowsHolder then continue end
-
-        for _, Object in ipairs(ArrowsHolder:GetChildren()) do
+        
+        local Holder = IncomingNotes:FindFirstChild(Direction) or IncomingNotes:FindFirstChild(Key)
+        if not Holder then continue end
+        
+        for _, Object in ipairs(Holder:GetChildren()) do 
             if table.find(Marked, Object) then continue end
+            
             local Keybind = Keybinds:FindFirstChild(Direction) and Keybinds[Direction].Value
-
+            if not Keybind then warn("Couldn't find bind!") continue end
+            
             local Start = SideMenu.Arrows:FindFirstChild(Direction) and SideMenu.Arrows[Direction].AbsolutePosition.Y or SideMenu.Arrows[Key].AbsolutePosition.Y
             local Current = Object.AbsolutePosition.Y
             local Difference = not InputFolder.Downscroll.Value and (Current - Start) or (Start - Current)
-
+            
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
             
             if Difference < 0.3 and Library.flags.SpecialNotes then
