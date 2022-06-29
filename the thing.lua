@@ -153,12 +153,6 @@ Window:AddButton({ text = 'Unload script', callback = function()
     Library.base:Destroy()
 end })
 
-Window:AddButton({text = "Redeem Codes", callback = function()
-    pcall(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/o5u3/Friday-Night-Bloxxin-Autoplayer/main/RedeemCodes.lua"))()
-    end)
-end})
-
 Window:AddButton({text = "Instant Solo", callback = function()
     pcall(function()
         PlayerGui.SingleplayerUI.ButtonPressed:FireServer()
