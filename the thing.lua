@@ -35,7 +35,6 @@ local Folder = Window:AddFolder("Autoplayer")
 local CreditsFolder = Window:AddFolder("Credits")
 
 RunService.Heartbeat:Connect(function()
-   
     for i, v in pairs(LP.PlayerScripts:GetDescendants()) do
         if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
             v:Destroy()
@@ -47,26 +46,24 @@ RunService.Heartbeat:Connect(function()
     if Menu.Config.TimePast.Value <= 0 then return end
     
     local SideMenu = Menu.Game:FindFirstChild(Menu.PlayerSide.Value)
-    local IncomingNotes = SideMenu.Arrows.IncomingNotes
+    local IncomingArrows = SideMenu.Arrows.IncomingNotes
+
+    local Keys = KeysTable[tostring(#IncomingArrows:GetChildren())] or IncomingArrows:GetChildren()
     
-    local Keys = KeysTable[tostring(#IncomingNotes:GetChildren())] or IncomingNotes:GetChildren()
-    
-    for Key, Direction in pairs(Keys) do 
+    for Key, Direction in pairs(Keys) do
         Direction = tostring(Direction)
-        
-        local Holder = IncomingNotes:FindFirstChild(Direction) or IncomingNotes:FindFirstChild(Key)
-        if not Holder then continue end
-        
-        for _, Object in ipairs(Holder:GetChildren()) do 
+
+        local ArrowsHolder = IncomingArrows:FindFirstChild(Direction) or IncomingArrows:FindFirstChild(Key)
+        if not ArrowsHolder then continue end
+
+        for _, Object in ipairs(ArrowsHolder:GetChildren()) do
             if table.find(Marked, Object) then continue end
-            
             local Keybind = Keybinds:FindFirstChild(Direction) and Keybinds[Direction].Value
-            if not Keybind then warn("Couldn't find bind!") continue end
-            
+
             local Start = SideMenu.Arrows:FindFirstChild(Direction) and SideMenu.Arrows[Direction].AbsolutePosition.Y or SideMenu.Arrows[Key].AbsolutePosition.Y
             local Current = Object.AbsolutePosition.Y
             local Difference = not InputFolder.Downscroll.Value and (Current - Start) or (Start - Current)
-            
+
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
             
             if Difference < 0.3 and Library.flags.SpecialNotes then
