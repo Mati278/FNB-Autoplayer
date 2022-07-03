@@ -39,7 +39,7 @@ RunService.Heartbeat:Connect(function()
         end
     end
 
-    if not Library.flags.AutoPlayer then return end
+    if not Library.flags.Sus then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
     
@@ -125,11 +125,11 @@ if Library.flags.AutoPlayer then
     Library.flags.SpecialNotes = false
 end
 
-local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "AutoPlayer"})
+local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus"})
 
 Window:AddLabel({text = "Actually bypassed tash anti"})
 Window:AddLabel({text = "Sup hi yfs very cool"})
-Folder:AddBind({ text = 'Autoplayer toggle', flag = 'AutoPlayer', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
+Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
 Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode.PageDown, callback = function() special:SetState(not special.state) end})
