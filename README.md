@@ -14,7 +14,7 @@ Basically this is a reupload (and a tweaked version) of the one made by Kaiden00
 
 # Extra info
 
-devs found script, probably patched soon
+@fq0e kill yourself nigga
 
 
 ‫‫‫
