@@ -27,8 +27,8 @@ local KeysTable = {
 
 local Marked = {}
 
-local Window = Library:CreateWindow("FNB Auto Play") 
-local Folder = Window:AddFolder("Autoplayer") 
+local Window = Library:CreateWindow("hi") 
+local Folder = Window:AddFolder("main") 
 
 local CreditsFolder = Window:AddFolder("Credits")
 
