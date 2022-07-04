@@ -1,35 +1,32 @@
-if not game:IsLoaded() then game.Loaded:Wait() end 
+if not game:IsLoaded() then game.Loaded:Wait() end
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-local InputManager = game:GetService("VirtualInputManager")
 local InputService = game:GetService("UserInputService")
-local HttpService = game:GetService('HttpService')
+local InputManager = game:GetService("VirtualInputManager")
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))() --credits to Jan
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/o5u3/Friday-Night-Bloxxin-Autoplayer/main/uwuware-ui-edit"))()
 
 local Client = game:GetService("Players").LocalPlayer
 local PlayerGui = Client:WaitForChild("PlayerGui")
 
 local InputFolder = Client:WaitForChild("Input")
+local Keybinds = InputFolder:WaitForChild("Keybinds")
 
 local Old
 local LP = Players.LocalPlayer
 
-local Keybinds = InputFolder:WaitForChild("Keybinds")
+local Marked = {}
 
 local KeysTable = {
     ["4"] = {"Up", "Down", "Left", "Right"},
     ["6"] = {S = "L3", D = "L2", F = "L1", J = "R1", K = "R2", L = "R3"},
     ["7"] = {S = "L3", D = "L2", F = "L1", Space = "Space", J = "R1", K = "R2", L = "R3"},
     ["9"] = {A = "L4", S = "L3", D = "L2", F = "L1", Space = "Space", H = "R1", J = "R2", K = "R3", L = "R4"}
-
 }
 
-local Marked = {}
-
-local Window = Library:CreateWindow("FNB Auto Play") 
-local Folder = Window:AddFolder("Main") 
+local Window = Library:CreateWindow("hi") 
+local Folder = Window:AddFolder("main") 
 
 local CreditsFolder = Window:AddFolder("Credits")
 
@@ -39,13 +36,14 @@ RunService.Heartbeat:Connect(function()
             v:Destroy()
         end
     end
+    
     for i, v in pairs(game:GetService("ReplicatedStorage").Modules.Util:GetDescendants()) do
-        if v:IsA("ImageLabel") and v.Name == "boo" then
+        if v:IsA("ImageLabel") and v.Name == "boo" then -- how could you do such a thing fnb dev team ;(
             v:Destroy()
         end
     end
 
-    if not Library.flags.AutoPlayer then return end
+    if not Library.flags.Sus then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
     
@@ -70,13 +68,13 @@ RunService.Heartbeat:Connect(function()
 
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
             
-            if Difference <= 0.35 and not IsHell then
+            if Difference < 0.3 and Library.flags.SpecialNotes then
                 Marked[#Marked + 1] = Object
                 InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
                 repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)  
             end
-                    
+                            
             if Difference < 0.3 and not IsHell then
                 if not Library.flags.SpecialNotes then
                     Marked[#Marked + 1] = Object
@@ -86,7 +84,7 @@ RunService.Heartbeat:Connect(function()
                 end
             end
         end
-    end 
+    end
 end)
 
 PlayerGui.ChildAdded:Connect(function(Object)
@@ -114,15 +112,14 @@ Old = hookmetamethod(game, "__newindex", newcclosure(function(self, ...)
     return Old(self, ...)
 end))
 
-if Library.flags.AutoPlayer then
+if Library.flags.Sus then
     Library.flags.SpecialNotes = false
 end
 
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus"})
 
 Window:AddLabel({text = "Actually bypassed tash anti"})
-Window:AddLabel({text = "no more game crash yay"})
-Window:AddLabel({text = "martin.png"})
+Window:AddLabel({text = "Sup hi yfs very cool"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
@@ -131,7 +128,7 @@ Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
-CreditsFolder:AddLabel({text = "Thanks to KiwisASkid 4 help :)"})
+CreditsFolder:AddLabel({text = "Thanks to KiwisASkid 4 help"})
 CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
 
 Window:AddButton({ text = 'Unload script', callback = function() 
@@ -150,5 +147,3 @@ Window:AddButton({text = "Instant Solo", callback = function()
 end})
 
 Library:Init()
-
-warn("Loaded script!")
