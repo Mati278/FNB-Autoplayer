@@ -13,7 +13,7 @@ local PlayerGui = Client:WaitForChild("PlayerGui")
 
 local InputFolder = Client:WaitForChild("Input")
 
-local OldNameCall
+local Old
 local LP = Players.LocalPlayer
 
 local Keybinds = InputFolder:WaitForChild("Keybinds")
@@ -28,8 +28,8 @@ local KeysTable = {
 
 local Marked = {}
 
-local Window = Library:CreateWindow("hi") 
-local Folder = Window:AddFolder("main") 
+local Window = Library:CreateWindow("FNB Auto Play") 
+local Folder = Window:AddFolder("Main") 
 
 local CreditsFolder = Window:AddFolder("Credits")
 
@@ -72,22 +72,18 @@ RunService.Heartbeat:Connect(function()
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
             
             if Difference < 0.3 and Library.flags.SpecialNotes then
-                if not SN then
+                Marked[#Marked + 1] = Object
+                InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
+                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
+                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+            end
+                            
+            if Difference < 0.3 and not IsHell then
+                if not Library.flags.SpecialNotes then
                     Marked[#Marked + 1] = Object
                     InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
                     repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
                     InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
-                end
-            end
-                            
-            if Difference < 0.3 and not IsHell then
-                if not SN then
-                    if not Library.flags.SpecialNotes then
-                        Marked[#Marked + 1] = Object
-                        InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                        repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                        InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
-                    end
                 end
             end
         end
@@ -98,7 +94,7 @@ PlayerGui.ChildAdded:Connect(function(Object)
     if Object:IsA("ScreenGui") and Object:FindFirstChild("Game") then
         table.clear(Marked)
         getgenv().Menu = Object
-    end 
+    end
 end)
 
 for _, ScreenGui in ipairs(PlayerGui:GetChildren()) do
@@ -107,7 +103,7 @@ for _, ScreenGui in ipairs(PlayerGui:GetChildren()) do
 end
 
 
-local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, ...)
+Old = hookmetamethod(game, "__newindex", newcclosure(function(self, ...)
     local Args = {...}
     local Property = Args[1]
 
@@ -115,18 +111,10 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
     local Humanoid = Client.Character:FindFirstChild("Humanoid")
     if not Humanoid then return end
 
-    if self == Humanoid and Property == "Health" and not checkcaller() then return end 
-    
+    if self == Humanoid and Property == "Health" and not checkcaller() then return end
+
     return Old(self, ...)
 end))
-
-OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...) 
-    local method = getnamecallmethod()
-    if method == "Kick" and Self == LP then 
-        return
-    end
-    return OldNameCall(Self, ...)
-end)
 
 if Library.flags.AutoPlayer then
     Library.flags.SpecialNotes = false
@@ -136,6 +124,7 @@ local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus"})
 
 Window:AddLabel({text = "Actually bypassed tash anti"})
 Window:AddLabel({text = "no more game crash yay"})
+Window:AddLabel({text = "martin.png"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
