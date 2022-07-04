@@ -4,6 +4,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local InputManager = game:GetService("VirtualInputManager")
 local InputService = game:GetService("UserInputService")
+local HttpService = game:GetService('HttpService')
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))() --credits to Jan
 
@@ -39,6 +40,12 @@ RunService.Heartbeat:Connect(function()
         end
     end
 
+    for i, v in pairs(game:GetService("ReplicatedStorage").Modules.Util:GetDescendants()) do
+        if v:IsA("ImageLabel") and v.Name == "boo" then 
+            v:Destroy()
+        end
+    end
+        
     if not Library.flags.Sus then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
@@ -128,7 +135,7 @@ end
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus"})
 
 Window:AddLabel({text = "Actually bypassed tash anti"})
-Window:AddLabel({text = "Sup hi yfs very cool"})
+Window:AddLabel({text = "no more game crash yay"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
@@ -137,7 +144,7 @@ Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
 CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
-CreditsFolder:AddLabel({text = "Thanks to KiwisASkid 4 help"})
+CreditsFolder:AddLabel({text = "Thanks to KiwisASkid 4 help :)"})
 CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
 
 Window:AddButton({ text = 'Unload script', callback = function() 
