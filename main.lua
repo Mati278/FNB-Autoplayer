@@ -75,7 +75,7 @@ RunService.Heartbeat:Connect(function()
                 Marked[#Marked + 1] = Object
                 InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
                 repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)  
             end
                             
             if Difference < 0.3 and not IsHell then
@@ -89,6 +89,7 @@ RunService.Heartbeat:Connect(function()
         end
     end 
 end)
+
 
 PlayerGui.ChildAdded:Connect(function(Object)
     if Object:IsA("ScreenGui") and Object:FindFirstChild("Game") then
