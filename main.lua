@@ -39,14 +39,13 @@ RunService.Heartbeat:Connect(function()
             v:Destroy()
         end
     end
-
     for i, v in pairs(game:GetService("ReplicatedStorage").Modules.Util:GetDescendants()) do
-        if v:IsA("ImageLabel") and v.Name == "boo" then 
+        if v:IsA("ImageLabel") and v.Name == "boo" then
             v:Destroy()
         end
     end
-        
-    if not Library.flags.Sus then return end
+
+    if not Library.flags.AutoPlayer then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
     
@@ -71,13 +70,13 @@ RunService.Heartbeat:Connect(function()
 
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
             
-            if Difference < 0.3 and Library.flags.SpecialNotes then
+            if Difference <= 0.35 and not IsHell then
                 Marked[#Marked + 1] = Object
                 InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
                 repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
                 InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
             end
-                            
+                    
             if Difference < 0.3 and not IsHell then
                 if not Library.flags.SpecialNotes then
                     Marked[#Marked + 1] = Object
@@ -102,7 +101,6 @@ for _, ScreenGui in ipairs(PlayerGui:GetChildren()) do
     getgenv().Menu = ScreenGui
 end
 
-
 Old = hookmetamethod(game, "__newindex", newcclosure(function(self, ...)
     local Args = {...}
     local Property = Args[1]
@@ -112,7 +110,7 @@ Old = hookmetamethod(game, "__newindex", newcclosure(function(self, ...)
     if not Humanoid then return end
 
     if self == Humanoid and Property == "Health" and not checkcaller() then return end
-
+    
     return Old(self, ...)
 end))
 
