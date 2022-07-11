@@ -132,6 +132,8 @@ CreditsFolder:AddLabel({text = "Thanks to KiwisASkid 4 help"})
 CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
 
 Window:AddButton({ text = 'Unload script', callback = function() 
+    toggle:SetState(false)
+    special:SetState(false)
     HttpService:GenerateGUID(false)
     if Library.open then Library:Close() end
     pcall(RunService.UnbindFromRenderStep, RunService, shared._id)
