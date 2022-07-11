@@ -117,7 +117,7 @@ if Library.flags.Sus then
     Library.flags.SpecialNotes = false
 end
 
-local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus"})
+local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus", state = true})
 
 Window:AddLabel({text = "Actually bypassed tash anti"})
 Window:AddLabel({text = "Sup hi yfs very cool"})
