@@ -149,4 +149,4 @@ Window:AddButton({text = "Instant Solo", callback = function()
     end)
 end})
 
-Library:Init() -hi :)
+Library:Init() --hi :)
