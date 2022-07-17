@@ -39,7 +39,7 @@ RunService.Heartbeat:Connect(function()
     end
     
     for i, v in pairs(game:GetService("ReplicatedStorage").Modules.Util:GetDescendants()) do
-        if v:IsA("ImageLabel") and v.Name == "boo" then -- how could you do such a thing fnb dev team ;(
+        if v:IsA("ImageLabel") and v.Name == "boo" or v.Name == "otherboo" then
             v:Destroy()
         end
     end
