@@ -149,7 +149,7 @@ local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus", state = true
 
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
-Window:AddSlider{text="Bot Accuracy (ms)",flag = "BAcc",min = -75, max = 75,value = 45.7}
+Window:AddSlider{text="Bot Accuracy (ms)",flag = "BAcc",min = -75, max = 75,value = -45.7}
 
 Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
