@@ -113,16 +113,16 @@ local Autoplay = function(Child)
                 local ModuleScript = Arrow:FindFirstChildOfClass'ModuleScript'
                 if not Arrow.HellNote.Value or Arrow.HellNote.Value and _require(ModuleScript).Type ~= 'OnHit' and not GimmickNotes or not GimmickNotes == 'OnHit' then
                     local Input = Keys[Holder.name]
-                    --[[local Y = Arrows[Holder.name].AbsolutePosition.Y
+                    local Y = Arrows[Holder.name].AbsolutePosition.Y
                     
                     if Y > Client:GetMouse().ViewSizeY / 2 then
                         repeat RunService.Hearbeat:Wait() until Y >= Arrow.AbsolutePosition.Y
                     else
                         repeat RunService.Heartbeat:Wait() until Y <= Y <= Arrow.AbsolutePosition.Y
-                    end]]
+                    end
                     task.wait(.4 + math.floor(Library.flags.BAcc)/1000) --like this for now im lazy
               
-                    if Library.flags.yes then
+                    if Library.flags.Sus then
                         VirtualInputManager:SendKeyEvent(true,Input,false,nil)
                         repeat RunService.RenderStepped:Wait() until not Arrow or not Arrow:FindFirstChild'Frame' or Arrow.Frame.Bar.Size.Y.Scale <= 0.3
                         VirtualInputManager:SendKeyEvent(false,Input,false,nil)
