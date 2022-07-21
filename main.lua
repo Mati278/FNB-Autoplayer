@@ -1,151 +1,173 @@
 if not game:IsLoaded() then game.Loaded:Wait() end
+local _,_00 = loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua-script/main/fnb/_.lua')()
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local InputService = game:GetService("UserInputService")
-local InputManager = game:GetService("VirtualInputManager")
-local HttpService = game:GetService("HttpService")
+--variables
+local Client = game:GetService'Players'.LocalPlayer
+local VirtualInputManager = game:GetService'VirtualInputManager'
+local RunService = game:GetService'RunService'
+local ReplicatedStorage = game:GetService'ReplicatedStorage'
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/o5u3/Friday-Night-Bloxxin-Autoplayer/main/uwuware-ui-edit"))()
+local Connected = {}
 
-local Client = game:GetService("Players").LocalPlayer
-local PlayerGui = Client:WaitForChild("PlayerGui")
+local function _require(_)
+    return _ and require(_) or {}
+end
 
-local InputFolder = Client:WaitForChild("Input")
-local Keybinds = InputFolder:WaitForChild("Keybinds")
+local function FindDescendant(Inst,Excepted)
+    for i,v in pairs(Inst:GetDescendants()) do
+        if tostring(v) == Excepted then
+            return v
+        end
+    end
+    return nil
+end
 
-local Old
-local LP = Players.LocalPlayer
+--the real thing
+local Autoplay = function(Child)
+    repeat wait() until Child.Config.TimePast.Value >= -.5
+    
+    local Arrows = Child.Game[Child.PlayerSide.Value].Arrows
+    local IncomingNotes = Arrows.IncomingNotes:children()
+    
+    local Song = FindDescendant(ReplicatedStorage.Songs,Child.LowerContainer.Credit.Text:split'\n'[1])
+    local GimmickNotes = _['G'..'immic'..'kNo'..'tes'](_)
+    print('Song: ' .. tostring(Song))
+    if Song then
+        GimmickNotes = Song:FindFirstChild'MultiplieGimmickNotes' and Song:FindFirstChild'MultiplieGimmickNotes'.Value == 'OnHit'  or 
+        Song:FindFirstChildOfClass'ModuleScript' and Song:FindFirstChildOfClass'ModuleScript':FindFirstChild'GimmickNotes'
+        or Song:FindFirstChild'GimmickNotes'
+    end
+    GimmickNotes = GimmickNotes and GimmickNotes.Value or nil
+    
+    local Keybinds,KeyCode = Client.Input.Keybinds,Enum.KeyCode
+    local Keys = (
+        {
+            [4] = {
+                Left = KeyCode[Keybinds.Left.Value],
+                Down = KeyCode[Keybinds.Down.Value],
+                Up = KeyCode[Keybinds.Up.Value],
+                Right = KeyCode[Keybinds.Right.Value]
+            },
+            [5] = {
+                Left = KeyCode[Keybinds.Left.Value],
+                Down = KeyCode[Keybinds.Down.Value],
+                Space = KeyCode[Keybinds.Space.Value],
+                Up = KeyCode[Keybinds.Up.Value],
+                Right = KeyCode[Keybinds.Right.Value]
+            },
+            [6] = {
+                S = KeyCode[Keybinds.L3.Value],
+                D = KeyCode[Keybinds.L2.Value],
+                F = KeyCode[Keybinds.L1.Value],
+                J = KeyCode[Keybinds.R1.Value],
+                K = KeyCode[Keybinds.R2.Value],
+                L = KeyCode[Keybinds.R3.Value],
+            },
+            [7] = {
+                S = KeyCode[Keybinds.L3.Value],
+                D = KeyCode[Keybinds.L2.Value],
+                F = KeyCode[Keybinds.L1.Value],
+                Space = KeyCode[Keybinds.Space.Value],
+                J = KeyCode[Keybinds.R1.Value],
+                K = KeyCode[Keybinds.R2.Value],
+                L = KeyCode[Keybinds.R3.Value]
+            },
+            [8] = {
+                A = KeyCode[Keybinds.L4.Value],
+                S = KeyCode[Keybinds.L3.Value],
+                D = KeyCode[Keybinds.L2.Value],
+                F = KeyCode[Keybinds.L1.Value],
+                H = KeyCode[Keybinds.R1.Value],
+                J = KeyCode[Keybinds.R2.Value],
+                K = KeyCode[Keybinds.R3.Value],
+                L = KeyCode[Keybinds.R4.Value]
+            },
+            [9] = {
+                A = KeyCode[Keybinds.L4.Value],
+                S = KeyCode[Keybinds.L3.Value],
+                D = KeyCode[Keybinds.L2.Value],
+                F = KeyCode[Keybinds.L1.Value],
+                Space = KeyCode[Keybinds.Space.Value],
+                H = KeyCode[Keybinds.R1.Value],
+                J = KeyCode[Keybinds.R2.Value],
+                K = KeyCode[Keybinds.R3.Value],
+                L = KeyCode[Keybinds.R4.Value]
+            }
+        }
+    )[#IncomingNotes]
+    
+    Keybinds,KeyCode = nil
+    
+    for _,Holder in pairs(IncomingNotes) do
+        Connected[#Connected + 1] = Holder.ChildAdded:Connect(
+            function(Arrow)
+                local ModuleScript = Arrow:FindFirstChildOfClass'ModuleScript'
+                if not Arrow.HellNote.Value or Arrow.HellNote.Value and _require(ModuleScript).Type ~= 'OnHit' and not GimmickNotes or not GimmickNotes == 'OnHit' then
+                    local Input = Keys[Holder.name]
 
-local Marked = {}
+                    task.wait(.4 + math.floor(Library.flags.ms)/1000)
+              
+                    if Library.flags.Sus then
+                        VirtualInputManager:SendKeyEvent(true,Input,false,nil)
+                        repeat RunService.RenderStepped:Wait() until not Arrow or not Arrow:FindFirstChild'Frame' or Arrow.Frame.Bar.Size.Y.Scale <= 0.3
+                        VirtualInputManager:SendKeyEvent(false,Input,false,nil)
+                    end
+                end
+            end
+        )
+    end
+end
 
-local KeysTable = {
-    ["4"] = {"Up", "Down", "Left", "Right"},
-    ["6"] = {S = "L3", D = "L2", F = "L1", J = "R1", K = "R2", L = "R3"},
-    ["7"] = {S = "L3", D = "L2", F = "L1", Space = "Space", J = "R1", K = "R2", L = "R3"},
-    ["9"] = {A = "L4", S = "L3", D = "L2", F = "L1", Space = "Space", H = "R1", J = "R2", K = "R3", L = "R4"}
-}
+--basically insulting fnb
+Connected[#Connected + 1] =
+Client.PlayerGui.ChildAdded:Connect(
+    function(Child)
+        if Child.name == 'FNFEngine' then 
+            Autoplay(Child)
+        end
+    end
+)
 
-local Window = Library:CreateWindow("hi") 
+for i,v in pairs(game:GetService"Workspace":GetDescendants()) do
+    if v:IsA'ProximityPrompt' then
+        v.HoldDuration = 0
+    end
+end
+
+if Client.PlayerGui:FindFirstChild'FNFEngine' then
+    Autoplay(Client.PlayerGui.FNFEngine)
+end
+
+--ui thingy
+local Window = Library:CreateWindow("FNB Auto Play") 
 local Folder = Window:AddFolder("main") 
 
 local CreditsFolder = Window:AddFolder("Credits")
 
-RunService.Heartbeat:Connect(function()
-    for i, v in pairs(LP.PlayerScripts:GetDescendants()) do
-        if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
-            v:Destroy()
-        end
-    end
-    for i, v in pairs(game:GetService("ReplicatedStorage").Modules.Util:GetDescendants()) do
-        if v:IsA("ImageLabel") and v.Name == "boo" or v.Name == "otherboo" then -- lol
-            v:Destroy()
-        end
-    end
-
-    if not Library.flags.Sus then return end
-    if not Menu or not Menu.Parent then return end
-    if Menu.Config.TimePast.Value <= 0 then return end
-    
-    local SideMenu = Child.Game[Child.PlayerSide.Value].Arrows
-    local IncomingArrows = Arrows.IncomingNotes:children()
-    
-    local Keys = KeysTable[tostring(#IncomingArrows:GetChildren())] or IncomingArrows:GetChildren()
-    
-    for Key, Direction in pairs(Keys) do
-        Direction = tostring(Direction)
-
-        local ArrowsHolder = IncomingArrows:FindFirstChild(Direction) or IncomingArrows:FindFirstChild(Key)
-        if not ArrowsHolder then continue end
-
-        for _, Object in ipairs(ArrowsHolder:GetChildren()) do
-            if table.find(Marked, Object) then continue end
-            local Keybind = Keybinds:FindFirstChild(Direction) and Keybinds[Direction].Value
-
-            local Start = SideMenu.Arrows:FindFirstChild(Direction) and SideMenu.Arrows[Direction].AbsolutePosition.Y or SideMenu.Arrows[Key].AbsolutePosition.Y
-            local Current = Object.AbsolutePosition.Y
-            local Difference = not InputFolder.Downscroll.Value and (Current - Start) or (Start - Current)
-
-            local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
-            
-            if Difference < 0.3 and Library.flags.SpecialNotes then
-                Marked[#Marked + 1] = Object
-                InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)  
-            end
-                            
-            if Difference < 0.3 and not IsHell then
-                if not Library.flags.SpecialNotes then
-                    Marked[#Marked + 1] = Object
-                    InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                    repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                    InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
-                end
-            end
-        end
-    end
-end)
-
-PlayerGui.ChildAdded:Connect(function(Object)
-    if Object:IsA("ScreenGui") and Object:FindFirstChild("Game") then
-        table.clear(Marked)
-        getgenv().Menu = Object
-    end
-end)
-
-for _, ScreenGui in ipairs(PlayerGui:GetChildren()) do
-    if not ScreenGui:FindFirstChild("Game") then continue end
-    getgenv().Menu = ScreenGui
-end
-
-Old = hookmetamethod(game, "__newindex", newcclosure(function(self, ...)
-    local Args = {...}
-    local Property = Args[1]
-
-    if not Client.Character then return end
-    local Humanoid = Client.Character:FindFirstChild("Humanoid")
-    if not Humanoid then return end
-
-    if self == Humanoid and Property == "Health" and not checkcaller() then return end
-    
-    return Old(self, ...)
-end))
-
-if Library.flags.Sus then
-    Library.flags.SpecialNotes = false
-end
-
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus", state = true})
 
-Window:AddLabel({text = "Actually bypassed tash anti"})
-Window:AddLabel({text = "Sup hi yfs very cool"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
+Folder:AddSlider({ text= 'Bot accuracy (ms)',flag = "ms", min = -75, max = 75, value = -47})
 
-local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
-Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode.PageDown, callback = function() special:SetState(not special.state) end})
+Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
 
-Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
-
-CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
-CreditsFolder:AddLabel({text = "Thanks to KiwisASkid 4 help"})
+CreditsFolder:AddLabel({text = "Tweaked by Mati278 & stavratum"})
 CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
 
 Window:AddButton({ text = 'Unload script', callback = function() 
-    toggle:SetState(false)
-    special:SetState(false)
-    HttpService:GenerateGUID(false)
-    if Library.open then Library:Close() end
-    pcall(RunService.UnbindFromRenderStep, RunService, shared._id)
-    RunService:ClearAllChildren()
-    Library.base:ClearAllChildren()
+    for _,Function in pairs(Connected) do
+        Function:Disconnect()
+    end
     Library.base:Destroy()
+    script:Destroy()
 end })
 
 Window:AddButton({text = "Instant Solo", callback = function()
     pcall(function()
-        PlayerGui.SingleplayerUI.ButtonPressed:FireServer()
+        Client.PlayerGui.SingleplayerUI.ButtonPressed:FireServer()
     end)
 end})
 
-Library:Init() --hi :)
+Library:Init()
+Library.cursor.Visible = false
