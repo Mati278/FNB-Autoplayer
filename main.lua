@@ -32,6 +32,11 @@ local Folder = Window:AddFolder("main")
 local CreditsFolder = Window:AddFolder("Credits")
 
 RunService.Heartbeat:Connect(function()
+    for i, v in pairs(game:GetService("ReplicatedStorage").Modules.Util:GetDescendants()) do
+        if v:IsA("ImageLabel") and v.Name == "boo" or v.Name == "otherboo" then -- lol
+            v:Destroy()
+        end
+    end
 
     if not Library.flags.Sus then return end
     if not Menu or not Menu.Parent then return end
