@@ -32,6 +32,11 @@ local Folder = Window:AddFolder("main")
 local CreditsFolder = Window:AddFolder("Credits")
 
 RunService.Heartbeat:Connect(function()
+    for i, v in pairs(LP.PlayerScripts:GetDescendants()) do
+        if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
+            v:Destroy()
+        end
+    end
     for i, v in pairs(game:GetService("ReplicatedStorage").Modules.Util:GetDescendants()) do
         if v:IsA("ImageLabel") and v.Name == "boo" or v.Name == "otherboo" then -- lol
             v:Destroy()
