@@ -6,7 +6,7 @@ local InputService = game:GetService("UserInputService")
 local InputManager = game:GetService("VirtualInputManager")
 local HttpService = game:GetService("HttpService")
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/o5u3/Friday-Night-Bloxxin-Autoplayer/main/uwuware-ui-edit"))()
 
 local Client = game:GetService("Players").LocalPlayer
 local PlayerGui = Client:WaitForChild("PlayerGui")
