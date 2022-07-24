@@ -37,14 +37,13 @@ RunService.Heartbeat:Connect(function()
             v:Destroy()
         end
     end
-    
     for i, v in pairs(game:GetService("ReplicatedStorage").Modules.Util:GetDescendants()) do
         if v:IsA("ImageLabel") and v.Name == "boo" or v.Name == "otherboo" then
             v:Destroy()
         end
     end
 
-    if not Library.flags.Sus then return end
+    if not Library.flags.AutoPlayer then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
     
