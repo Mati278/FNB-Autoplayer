@@ -30,7 +30,7 @@ local Autoplay = function(Child)
     local Arrows = Child.Game[Child.PlayerSide.Value].Arrows
     local IncomingNotes = Arrows.IncomingNotes:children()
     
-    local Song = FindDescendant(ReplicatedStorage.Songs,Child.LowerContainer.Credit.Text:split'\n'[1])
+    local Song = FindDescendant(ReplicatedStorage.Songs,Child.LowerContainer.Credit.Text:split'\n'[1]:split' ('[1])
     local GimmickNotes = _['G'..'immic'..'kNo'..'tes'](_)
     print('Song: ' .. tostring(Song))
     if Song then
