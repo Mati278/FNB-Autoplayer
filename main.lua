@@ -1,4 +1,4 @@
-es (116 sloc)  5.98 KB
+
 
 if not game:IsLoaded() then game.Loaded:Wait() end
 
