@@ -43,7 +43,7 @@ RunService.Heartbeat:Connect(function()
         end
     end
 
-    if not Library.flags.AutoPlayer then return end
+    if not Library.flags.Sus then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
     
