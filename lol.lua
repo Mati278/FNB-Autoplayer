@@ -147,4 +147,16 @@ Window:AddButton({text = "Instant Solo", callback = function()
     end)
 end})
 
+Window:AddButton({ text = 'Load new version', callback = function() 
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/main.lua"))()
+    toggle:SetState(false)
+    special:SetState(false)
+    HttpService:GenerateGUID(false)
+    if Library.open then Library:Close() end
+    pcall(RunService.UnbindFromRenderStep, RunService, shared._id)
+    RunService:ClearAllChildren()
+    Library.base:ClearAllChildren()
+    Library.base:Destroy()
+end })
+
 Library:Init() --hi guys:)
