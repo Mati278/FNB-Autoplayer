@@ -118,7 +118,7 @@ end
 
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus", state = true})
 
-Window:AddLabel({text = "Downgraded until new advice"})
+Window:AddLabel({text= "Added version switcher"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
