@@ -24,14 +24,14 @@ end
 
 local uwuware = loadstring(game:HttpGet'https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua')()
 local Window = uwuware:CreateWindow"FNB Auto Play"
-local Folder = Window:AddFolder("main") 
+local FolderMain = Window:AddFolder("main") 
 
 local CreditsFolder = Window:AddFolder("Credits")
 
-local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "yes", state = true})
+local toggle = FolderMain:AddToggle({text = "AutoPlayer", flag = "yes", state = true})
 
-Folder:AddBind({ text = 'Autoplayer toggle', flag = 'yes', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
-Folder:AddSlider({ text= 'Bot accuracy (ms)',flag = "ms", min = -100, max = 100, value = 31.7})
+FolderMain:AddBind({ text = 'Autoplayer toggle', flag = 'yes', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
+FolderMain:AddSlider({ text= 'Bot accuracy (ms)',flag = "ms", min = -100, max = 100, value = 31.7})
 
 Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() uwuware:Close() end})
 
