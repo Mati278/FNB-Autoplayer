@@ -38,6 +38,7 @@ Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = 
 CreditsFolder:AddLabel({text = "Tweaked by Mati278 & stavratum"})
 CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
 
+Window:AddLabel({text= "Added version switcher"})
 Window:AddButton{text="Unload script",callback=function()
     for _,Function in pairs(Connected) do
         Function:Disconnect()
@@ -53,7 +54,7 @@ Window:AddButton({text = "Instant Solo", callback = function()
 end})
 
 Window:AddButton{text="Load old version",callback=function()
-    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/main.lua')()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/lol.lua')()
     for _,Function in pairs(Connected) do
         Function:Disconnect()
     end
@@ -174,8 +175,6 @@ end
 if Client.PlayerGui:FindFirstChild'FNFEngine' then
     Autoplay(Client.PlayerGui.FNFEngine)
 end
-
-
 
 uwuware:Init()
 uwuware.cursor.Visible = false
