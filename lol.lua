@@ -157,9 +157,10 @@ Window:AddButton({ text = 'Load new version', callback = function()
     pcall(function()
         RunService:ClearAllChildren()
         Library.base:ClearAllChildren()
-        Library.base:Destroy() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/main.lua"))()
+        Library.base:Destroy()  
     end)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/main.lua"))()
 end })
 
 Library:Init() --hi guys:)
+Library.cursor.Visible = false
