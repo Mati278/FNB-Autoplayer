@@ -63,7 +63,7 @@ Window:AddButton{text="Load old version",callback=function()
 end}
 
 local Autoplay = function(Child)
-    repeat wait() until Child.Config.TimePast.Value >= -.5
+    repeat wait() until Child.Config.TimePast.Value >= 0
     
     local Arrows = Child.Game[Child.PlayerSide.Value].Arrows
     local IncomingNotes = Arrows.IncomingNotes:children()
