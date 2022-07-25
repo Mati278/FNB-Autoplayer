@@ -6,7 +6,7 @@ local InputService = game:GetService("UserInputService")
 local InputManager = game:GetService("VirtualInputManager")
 local HttpService = game:GetService("HttpService")
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/o5u3/Friday-Night-Bloxxin-Autoplayer/main/uwuware-ui-edit"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/fnb%20bypass%20lib.lua"))()
 
 local Client = game:GetService("Players").LocalPlayer
 local PlayerGui = Client:WaitForChild("PlayerGui")
@@ -119,7 +119,7 @@ end
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus", state = true})
 
 Window:AddLabel({text= "Added version switcher"})
-Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
+Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.Home, callback = function() toggle:SetState(not toggle.state) end})
 
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
 Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode.PageDown, callback = function() special:SetState(not special.state) end})
