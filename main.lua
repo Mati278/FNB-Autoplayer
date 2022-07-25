@@ -31,7 +31,7 @@ local CreditsFolder = Window:AddFolder("Credits")
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "yes", state = true})
 
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'yes', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
-Folder:AddSlider({ text= 'Bot accuracy (ms)',flag = "ms", min = -75, max = 75, value = -47})
+Folder:AddSlider({ text= 'Bot accuracy (ms)',flag = "ms", min = -100, max = 100, value = 47})
 
 Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() uwuware:Close() end})
 
