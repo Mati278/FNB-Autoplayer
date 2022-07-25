@@ -1,13 +1,12 @@
-if not game:IsLoaded() then game.Loaded:Wait() end
 local _,_00 = loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua-script/main/fnb/_.lua')()
 
---variables
+if not game:IsLoaded() then game.Loaded:Wait() end
+
 local Client = game:GetService'Players'.LocalPlayer
 local VirtualInputManager = game:GetService'VirtualInputManager'
 local RunService = game:GetService'RunService'
 local ReplicatedStorage = game:GetService'ReplicatedStorage'
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/o5u3/Friday-Night-Bloxxin-Autoplayer/main/uwuware-ui-edit"))()
 local Connected = {}
 
 local function _require(_)
@@ -23,7 +22,45 @@ local function FindDescendant(Inst,Excepted)
     return nil
 end
 
---the real thing
+local uwuware = loadstring(game:HttpGet'https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua')()
+local Window = uwuware:CreateWindow"FNB Auto Play"
+local Folder = Window:AddFolder("main") 
+
+local CreditsFolder = Window:AddFolder("Credits")
+
+local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "yes", state = true})
+
+Folder:AddBind({ text = 'Autoplayer toggle', flag = 'yes', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
+Folder:AddSlider({ text= 'Bot accuracy (ms)',flag = "ms", min = -75, max = 75, value = -47})
+
+Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() uwuware:Close() end})
+
+CreditsFolder:AddLabel({text = "Tweaked by Mati278 & stavratum"})
+CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
+
+Window:AddButton{text="Unload script",callback=function()
+    for _,Function in pairs(Connected) do
+        Function:Disconnect()
+    end
+    uwuware.base:Destroy()
+    script:Destroy()
+end}
+
+Window:AddButton({text = "Instant Solo", callback = function()
+    pcall(function()
+        Client.PlayerGui.SingleplayerUI.ButtonPressed:FireServer()
+    end)
+end})
+
+Window:AddButton{text="Load old version",callback=function()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/main.lua')()
+    for _,Function in pairs(Connected) do
+        Function:Disconnect()
+    end
+    uwuware.base:Destroy()
+    script:Destroy()
+end}
+
 local Autoplay = function(Child)
     repeat wait() until Child.Config.TimePast.Value >= -.5
     
@@ -106,9 +143,9 @@ local Autoplay = function(Child)
                 if not Arrow.HellNote.Value or Arrow.HellNote.Value and _require(ModuleScript).Type ~= 'OnHit' and not GimmickNotes or not GimmickNotes == 'OnHit' then
                     local Input = Keys[Holder.name]
 
-                    task.wait(.4 + math.floor(Library.flags.ms)/1000)
+                    task.wait(.4 + math.floor(uwuware.flags.ms)/1000)
               
-                    if Library.flags.Sus then
+                    if uwuware.flags.yes then
                         VirtualInputManager:SendKeyEvent(true,Input,false,nil)
                         repeat RunService.RenderStepped:Wait() until not Arrow or not Arrow:FindFirstChild'Frame' or Arrow.Frame.Bar.Size.Y.Scale <= 0.3
                         VirtualInputManager:SendKeyEvent(false,Input,false,nil)
@@ -119,7 +156,6 @@ local Autoplay = function(Child)
     end
 end
 
---basically insulting fnb
 Connected[#Connected + 1] =
 Client.PlayerGui.ChildAdded:Connect(
     function(Child)
@@ -139,35 +175,7 @@ if Client.PlayerGui:FindFirstChild'FNFEngine' then
     Autoplay(Client.PlayerGui.FNFEngine)
 end
 
---ui thingy
-local Window = Library:CreateWindow("FNB Auto Play") 
-local Folder = Window:AddFolder("main") 
 
-local CreditsFolder = Window:AddFolder("Credits")
 
-local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus", state = true})
-
-Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
-Folder:AddSlider({ text= 'Bot accuracy (ms)',flag = "ms", min = -75, max = 75, value = -47})
-
-Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
-
-CreditsFolder:AddLabel({text = "Tweaked by Mati278 & stavratum"})
-CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
-
-Window:AddButton({ text = 'Unload script', callback = function() 
-    for _,Function in pairs(Connected) do
-        Function:Disconnect()
-    end
-    Library.base:Destroy()
-    script:Destroy()
-end })
-
-Window:AddButton({text = "Instant Solo", callback = function()
-    pcall(function()
-        Client.PlayerGui.SingleplayerUI.ButtonPressed:FireServer()
-    end)
-end})
-
-Library:Init()
-Library.cursor.Visible = false
+uwuware:Init()
+uwuware.cursor.Visible = false
