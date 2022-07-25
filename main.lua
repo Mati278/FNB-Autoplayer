@@ -54,11 +54,11 @@ Window:AddButton({text = "Instant Solo", callback = function()
 end})
 
 Window:AddButton{text="Load old version",callback=function()
-    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/lol.lua')()
     for _,Function in pairs(Connected) do
         Function:Disconnect()
     end
     uwuware.base:Destroy()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/lol.lua')()
     script:Destroy()
 end}
 
