@@ -47,12 +47,6 @@ Window:AddButton{text="Unload script",callback=function()
     script:Destroy()
 end}
 
-Window:AddButton({text = "Instant Solo", callback = function()
-    pcall(function()
-        Client.PlayerGui.SingleplayerUI.ButtonPressed:FireServer()
-    end)
-end})
-
 Window:AddButton{text="Load old version",callback=function()
     for _,Function in pairs(Connected) do
         Function:Disconnect()
