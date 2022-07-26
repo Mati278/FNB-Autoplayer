@@ -116,7 +116,7 @@ if Library.flags.Sus then
     Library.flags.SpecialNotes = false
 end
 
-local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus", state = true})
+local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus"})
 
 Window:AddLabel({text= "Added version switcher"})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.Home, callback = function() toggle:SetState(not toggle.state) end})
