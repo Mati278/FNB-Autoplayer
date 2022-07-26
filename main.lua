@@ -1,5 +1,3 @@
-local _,_00 = loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua-script/main/fnb/_.lua')()
-
 if not game:IsLoaded() then game.Loaded:Wait() end
 
 local Client = game:GetService'Players'.LocalPlayer
@@ -56,14 +54,15 @@ Window:AddButton{text="Load old version",callback=function()
     script:Destroy()
 end}
 
-local Autoplay = function(Child)
-    repeat wait() until Child.Config.TimePast.Value >= -.5
+local Init = function(Child)
+    wait(1)
+    repeat wait() until Child.Config.TimePast.Value >= -1
     
     local Arrows = Child.Game[Child.PlayerSide.Value].Arrows
     local IncomingNotes = Arrows.IncomingNotes:children()
     
     local Song = FindDescendant(ReplicatedStorage.Songs,Child.LowerContainer.Credit.Text:split'\n'[1]:split' ('[1])
-    local GimmickNotes = _['G'..'immic'..'kNo'..'tes'](_)
+    local GimmickNotes
     print('Song: ' .. tostring(Song))
     if Song then
         GimmickNotes = Song:FindFirstChild'MultiplieGimmickNotes' and Song:FindFirstChild'MultiplieGimmickNotes'.Value == 'OnHit'  or 
@@ -134,18 +133,19 @@ local Autoplay = function(Child)
     for _,Holder in pairs(IncomingNotes) do
         Connected[#Connected + 1] = Holder.ChildAdded:Connect(
             function(Arrow)
-                local ModuleScript = Arrow:FindFirstChildOfClass'ModuleScript'
-                if not Arrow.HellNote.Value or Arrow.HellNote.Value and _require(ModuleScript).Type ~= 'OnHit' and not GimmickNotes or not GimmickNotes == 'OnHit' then
-                    local Input = Keys[Holder.name]
+                task.spawn(function()
+                    local ModuleScript = Arrow:FindFirstChildOfClass'ModuleScript'
+                    if not Arrow.HellNote.Value or Arrow.HellNote.Value and _require(ModuleScript).Type ~= 'OnHit' and GimmickNotes ~= 'OnHit' then
+                        local Input = Keys[Holder.name]
+                        task.wait(.4 + math.floor(uwuware.flags.ms)/1000) --like this for now im lazy
 
-                    task.wait(.4 + math.floor(uwuware.flags.ms)/1000)
-              
-                    if uwuware.flags.yes then
-                        VirtualInputManager:SendKeyEvent(true,Input,false,nil)
-                        repeat RunService.RenderStepped:Wait() until not Arrow or not Arrow:FindFirstChild'Frame' or Arrow.Frame.Bar.Size.Y.Scale <= 0.3
-                        VirtualInputManager:SendKeyEvent(false,Input,false,nil)
+                        if uwuware.flags.yes then
+                            VirtualInputManager:SendKeyEvent(true,Input,false,nil)
+                            repeat task.wait() until not Arrow or not Arrow:FindFirstChild'Frame' or Arrow.Frame.Bar.Size.Y.Scale <= 0.4
+                            VirtualInputManager:SendKeyEvent(false,Input,false,nil)
+                        end
                     end
-                end
+                end)
             end
         )
     end
@@ -155,7 +155,7 @@ Connected[#Connected + 1] =
 Client.PlayerGui.ChildAdded:Connect(
     function(Child)
         if Child.name == 'FNFEngine' then 
-            Autoplay(Child)
+            Init(Child)
         end
     end
 )
@@ -167,7 +167,7 @@ for i,v in pairs(game:GetService"Workspace":GetDescendants()) do
 end
 
 if Client.PlayerGui:FindFirstChild'FNFEngine' then
-    Autoplay(Client.PlayerGui.FNFEngine)
+    Init(Client.PlayerGui.FNFEngine)
 end
 
 uwuware:Init()
