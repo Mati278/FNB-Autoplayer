@@ -4,7 +4,9 @@ local Client = game:GetService'Players'.LocalPlayer
 local VirtualInputManager = game:GetService'VirtualInputManager'
 local RunService = game:GetService'RunService'
 local ReplicatedStorage = game:GetService'ReplicatedStorage'
+local broWTH = loadstring(game:HttpGet'https://raw.githubusercontent.com/Quenty/NevermoreEngine/version2/Modules/Shared/Events/Maid.lua')().new()
 
+local ChildAdded
 local Connected = {}
 
 local function _require(_)
@@ -45,6 +47,10 @@ Window:AddButton{text="Unload script",callback=function()
     script:Destroy()
 end}
 
+Window:AddButton{text="Instant Solo",callback=function()
+    Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer()
+end}
+
 Window:AddButton{text="Load old version",callback=function()
     for _,Function in pairs(Connected) do
         Function:Disconnect()
@@ -53,6 +59,9 @@ Window:AddButton{text="Load old version",callback=function()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/lol.lua')()
     script:Destroy()
 end}
+
+uwuware:Init()
+uwuware.cursor.Visible = false
 
 local Init = function(Child)
     wait(1)
@@ -131,28 +140,28 @@ local Init = function(Child)
     Keybinds,KeyCode = nil
     
     for _,Holder in pairs(IncomingNotes) do
-        Connected[#Connected + 1] = Holder.ChildAdded:Connect(
-            function(Arrow)
-                task.spawn(function()
+        broWTH:GiveTask(
+            Holder.ChildAdded:Connect(
+                function(Arrow)
                     local ModuleScript = Arrow:FindFirstChildOfClass'ModuleScript'
                     if not Arrow.HellNote.Value or Arrow.HellNote.Value and _require(ModuleScript).Type ~= 'OnHit' and GimmickNotes ~= 'OnHit' then
                         local Input = Keys[Holder.name]
-                        task.wait(.4 + math.floor(uwuware.flags.ms)/1000) --like this for now im lazy
-
+                        task.wait(.4 + math.floor(uwuware.flags.ms)/1000)
                         if uwuware.flags.yes then
                             VirtualInputManager:SendKeyEvent(true,Input,false,nil)
                             repeat task.wait() until not Arrow or not Arrow:FindFirstChild'Frame' or Arrow.Frame.Bar.Size.Y.Scale <= 0.4
                             VirtualInputManager:SendKeyEvent(false,Input,false,nil)
                         end
                     end
-                end)
-            end
+                end
+            )
         )
     end
+    Child.Destroying:Wait()
+    broWTH:DoCleaning()
 end
 
-Connected[#Connected + 1] =
-Client.PlayerGui.ChildAdded:Connect(
+ChildAdded = Client.PlayerGui.ChildAdded:Connect(
     function(Child)
         if Child.name == 'FNFEngine' then 
             Init(Child)
@@ -169,6 +178,3 @@ end
 if Client.PlayerGui:FindFirstChild'FNFEngine' then
     Init(Client.PlayerGui.FNFEngine)
 end
-
-uwuware:Init()
-uwuware.cursor.Visible = false
