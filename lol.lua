@@ -142,6 +142,10 @@ Window:AddButton({ text = 'Unload script', callback = function()
     end)
 end })
 
+Window:AddButton{text="Instant Solo",callback=function()
+    Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer()
+end}
+
 Window:AddButton({ text = 'Load new version', callback = function()  
     toggle:SetState(false)
     special:SetState(false)
