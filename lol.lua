@@ -68,7 +68,8 @@ RunService.Heartbeat:Connect(function()
 
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
             
-            if Difference < 0.3 and Library.flags.SpecialNotes then
+            if Difference < 0.3 then
+                if not Library.flags.SpecialNotes then return end
                 Marked[#Marked + 1] = Object
                 InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
                 repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
