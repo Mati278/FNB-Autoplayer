@@ -22,7 +22,7 @@ local function FindDescendant(Inst,Excepted)
     return nil
 end
 
-local uwuware = loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua-script/main/fnb/uwuware_edit.lua')()
+local uwuware = loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua/main/fnb/uwuware.lua')()
 local Window = uwuware:CreateWindow"FNB Auto Play"
 local FolderMain = Window:AddFolder("main") 
 
