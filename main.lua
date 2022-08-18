@@ -59,15 +59,7 @@ Window:AddButton{text="Instant Solo",callback=function()
     Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer()
 end}
 
-Window:AddButton{text="Load old version",callback=function()
-    for _,Function in pairs(Connected) do
-        Function:Disconnect()
-    end
-    uwuware.base:Destroy()
-    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/lol.lua')()
-    script:Destroy()
-end}
-
+Window:AddLabel({text="Old ver temporaraliy disabled bc patched"})
 uwuware:Init()
 uwuware.cursor.Visible = false
 
