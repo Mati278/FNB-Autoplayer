@@ -10,7 +10,7 @@ local inputService = game:GetService"UserInputService"
 local dragging, dragInput, dragStart, startPos, dragObject
 
 local blacklistedKeys = { --add or remove keys if you find the need to
-    Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape,Enum.KeyCode.End
+    Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Backspace,Enum.KeyCode.Escape
 }
 local whitelistedMouseinputs = { --add or remove mouse inputs if you find the need to
     Enum.UserInputType.MouseButton1,Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3
@@ -1684,6 +1684,7 @@ function library:Init()
         AnchorPoint = Vector2.new(0, 0),
         Size = UDim2.new(0, 5, 0, 5),
         BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+        Visible = false,
         Parent = self.base
     })
     
@@ -1698,7 +1699,6 @@ end
 
 function library:Close()
     self.open = not self.open
-    self.cursor.Visible = self.open
     if self.activePopup then
         self.activePopup:Close()
     end
