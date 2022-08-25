@@ -5,6 +5,11 @@ local VirtualInputManager = game:GetService'VirtualInputManager'
 local RunService = game:GetService'RunService'
 local ReplicatedStorage = game:GetService'ReplicatedStorage'
 local broWTH = loadstring(game:HttpGet'https://raw.githubusercontent.com/Quenty/NevermoreEngine/version2/Modules/Shared/Events/Maid.lua')().new()
+local test = Client.userId
+
+if test == 2674402052 then
+    Client:Kick(string.format('ur mom fat lol'))
+end
 
 local ChildAdded
 local Connected = {}
