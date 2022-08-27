@@ -1,4 +1,5 @@
---use this instead
+--yeah
+
 loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua/main/fnb/main.lua')()
 
 --[[if not game:IsLoaded() then game.Loaded:Wait() end
