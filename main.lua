@@ -1,4 +1,7 @@
-if not game:IsLoaded() then game.Loaded:Wait() end
+--use this instead
+loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua/main/fnb/main.lua')()
+
+--[[if not game:IsLoaded() then game.Loaded:Wait() end
 
 local Client = game:GetService'Players'.LocalPlayer
 local VirtualInputManager = game:GetService'VirtualInputManager'
