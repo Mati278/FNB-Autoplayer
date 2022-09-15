@@ -1,4 +1,4 @@
---yeah
+--wth error 278 just like me lmao xD
 
 loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua/main/fnb/main.lua')()
 
