@@ -5,6 +5,7 @@ local runService = game:GetService"RunService"
 local tweenService = game:GetService"TweenService"
 local textService = game:GetService"TextService"
 local inputService = game:GetService"UserInputService"
+local replicatedStorage = game:GetService"ReplicatedStorage"
 
 --Locals
 local dragging, dragInput, dragStart, startPos, dragObject
