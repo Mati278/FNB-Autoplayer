@@ -82,7 +82,7 @@ Window:AddButton{text="Old ver (aka kiwi ver)",callback=function()
     end
     uwuware.base:Destroy()
     script:Destroy()
-    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/hello-again-lol/main/real.lua')
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/hello-again-lol/main/real.lua')()
 end}        
 uwuware:Init()
 uwuware.cursor.Visible = false
