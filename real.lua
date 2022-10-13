@@ -12,7 +12,6 @@ local Keybinds = InputFolder:WaitForChild("Keybinds")
 local Old
 local LP = Players.LocalPlayer
 local Marked = {}
-loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")()
 local KeysTable = {
     ["4"] = {"Up", "Down", "Left", "Right"},
     ["6"] = {S = "L3", D = "L2", F = "L1", J = "R1", K = "R2", L = "R3"},
@@ -23,7 +22,7 @@ local Window = Library:CreateWindow("hi")
 local Folder = Window:AddFolder("main") 
 local CreditsFolder = Window:AddFolder("Credits")
 RunService.Heartbeat:Connect(function()
-    loadstring(game:HttpGet(https://raw.githubusercontent.com/stavratum/lua/main/fnb/Bypass.lua))()
+    loadstring(game:HttpGet(https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua))()
     for i, v in pairs(LP.PlayerScripts:GetDescendants()) do
         if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
             v:Destroy()
