@@ -1,19 +1,26 @@
---wth error 278 just like me lmao xD
-
-loadstring(game:HttpGet'https://raw.githubusercontent.com/stavratum/lua/main/fnb/main.lua')()
-
---[[if not game:IsLoaded() then game.Loaded:Wait() end
+if not game:IsLoaded() then game.Loaded:Wait() end
 
 local Client = game:GetService'Players'.LocalPlayer
-local VirtualInputManager = game:GetService'VirtualInputManager'
 local RunService = game:GetService'RunService'
 local ReplicatedStorage = game:GetService'ReplicatedStorage'
 local broWTH = loadstring(game:HttpGet'https://raw.githubusercontent.com/Quenty/NevermoreEngine/version2/Modules/Shared/Events/Maid.lua')().new()
 local test = Client.userId
+loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")()
 
 if test == 2674402052 then
     Client:Kick(string.format('ur mom fat lol'))
 end
+
+local ChildAdded
+local Connected = {}
+
+--Once a wise man said:
+
+local VirtualInputManager = game:GetService'VirtualInputManager' -- I can freely use this service
+
+    --This is impossible to patch
+    --Suck my dick Robo
+
 
 local ChildAdded
 local Connected = {}
@@ -47,7 +54,7 @@ Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = 
 CreditsFolder:AddLabel({text = "Tweaked by Mati278 & stavratum"})
 CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
 
-Window:AddLabel({text= "Added version switcher"})
+Window:AddLabel({text= "me back after long break"})
 Window:AddButton{text="Unload script",callback=function()
     for _,Function in pairs(Connected) do
         Function:Disconnect()
@@ -68,7 +75,15 @@ Window:AddButton{text="Instant Solo",callback=function()
     Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer()
 end}
 
-Window:AddLabel({text="Old ver temporaraliy disabled bc patched"})
+Window:AddLabel({text="^ useless now ^"})
+Window:AddButton{text="Old ver (aka kiwi ver)",callback=function()
+    for _,Function in pairs(Connected) do
+        Function:Disconnect()
+    end
+    uwuware.base:Destroy()
+    script:Destroy()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/hello-again-lol/main/real.lua')
+end}        
 uwuware:Init()
 uwuware.cursor.Visible = false
 
