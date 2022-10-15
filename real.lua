@@ -22,7 +22,7 @@ local Window = Library:CreateWindow("hi")
 local Folder = Window:AddFolder("main") 
 local CreditsFolder = Window:AddFolder("Credits")
 RunService.Heartbeat:Connect(function()
-    loadstring(game:HttpGet(https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua"))()
     for i, v in pairs(LP.PlayerScripts:GetDescendants()) do
         if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
             v:Destroy()
