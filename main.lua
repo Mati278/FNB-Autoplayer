@@ -48,7 +48,7 @@ local toggle = FolderMain:AddToggle({text = "AutoPlayer", flag = "yes", state = 
 
 FolderMain:AddBind({ text = 'Autoplayer toggle', flag = 'yes', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 FolderMain:AddSlider({ text= 'Bot accuracy (ms)',flag = "ms", min = -1000, max = 1000, value = 0}) --discovered that this is ss dependant lol
-FolderMain:AddBind({ text = 'commit kys', flag = 'lmao', key = Enum.KeyCode.PageDown, callback = function() Client.Character:BreakJoints() end})
+FolderMain:AddBind({ text = 'commit kys', flag = 'lmao', key = Enum.KeyCode.PageUp, callback = function() Client.Character:BreakJoints() end})
 
 Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() uwuware:Close() end})
 
