@@ -4,7 +4,7 @@ local RunService = game:GetService("RunService")
 local InputService = game:GetService("UserInputService")
 local InputManager = game:GetService("VirtualInputManager")
 local HttpService = game:GetService("HttpService")
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/gfx.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/gfx.lua"))()
 local Client = game:GetService("Players").LocalPlayer
 local PlayerGui = Client:WaitForChild("PlayerGui")
 local InputFolder = Client:WaitForChild("Input")
@@ -12,10 +12,12 @@ local Keybinds = InputFolder:WaitForChild("Keybinds")
 local Old
 local LP = Players.LocalPlayer
 local Marked = {}
+loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")()
 local KeysTable = {
     ["4"] = {"Up", "Down", "Left", "Right"},
     ["6"] = {S = "L3", D = "L2", F = "L1", J = "R1", K = "R2", L = "R3"},
     ["7"] = {S = "L3", D = "L2", F = "L1", Space = "Space", J = "R1", K = "R2", L = "R3"},
+    ["8"] = {A = "L4", S = "L3", D = "L2", F = "L1", H = "R1", J = "R2", K = "R3", L = "R4"},
     ["9"] = {A = "L4", S = "L3", D = "L2", F = "L1", Space = "Space", H = "R1", J = "R2", K = "R3", L = "R4"}
 }
 local Window = Library:CreateWindow("hi") 
@@ -23,16 +25,6 @@ local Folder = Window:AddFolder("main")
 local CreditsFolder = Window:AddFolder("Credits")
 RunService.Heartbeat:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua"))()
-    for i, v in pairs(LP.PlayerScripts:GetDescendants()) do
-        if v:IsA("LocalScript") and v.Name == "xploitStuff" then 
-            v:Destroy()
-        end
-    end
-    for i, v in pairs(game:GetService("ReplicatedStorage").Modules.Util:GetDescendants()) do
-        if v:IsA("ImageLabel") and v.Name == "boo" or v.Name == "otherboo" then
-            v:Destroy()
-        end
-    end
     if not Library.flags.Sus then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
@@ -53,21 +45,20 @@ RunService.Heartbeat:Connect(function()
             local Difference = not InputFolder.Downscroll.Value and (Current - Start) or (Start - Current)
             local IsHell = Object:FindFirstChild("HellNote") and Object:FindFirstChild("HellNote").Value
             
-            if Difference < 0.3 then
-                if not Library.flags.SpecialNotes then return end
-                Marked[#Marked + 1] = Object
-                InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)  
-            end
-                            
-            if Difference < 0.3 and not IsHell then
-                if not Library.flags.SpecialNotes then
+            if Difference < 1 then
+                if Library.flags.SpecialNotes then
                     Marked[#Marked + 1] = Object
                     InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
                     repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
-                    InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
+                    InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)  
                 end
+            end
+                            
+            if Difference < 1 and not IsHell then
+                Marked[#Marked + 1] = Object
+                InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
+                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
+                InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
             end
         end
     end
@@ -96,7 +87,7 @@ if Library.flags.Sus then
     Library.flags.SpecialNotes = false
 end
 local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus", state = true})
-Window:AddLabel({text= "Added version switcher"})
+Window:AddLabel({text= "finally fixed "})
 Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.Home, callback = function() toggle:SetState(not toggle.state) end})
 local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
 Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode.PageDown, callback = function() special:SetState(not special.state) end})
@@ -129,7 +120,7 @@ Window:AddButton({ text = 'Load new version', callback = function()
         Library.base:ClearAllChildren()
         Library.base:Destroy()  
     end)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/hello-again-lol/main/main.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/main.lua"))()
 end })
 Library:Init() --hi guys:)
 Library.cursor.Visible = false
