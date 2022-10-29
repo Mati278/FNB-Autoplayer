@@ -3,9 +3,9 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 local Client = game:GetService'Players'.LocalPlayer
 local RunService = game:GetService'RunService'
 local ReplicatedStorage = game:GetService'ReplicatedStorage'
-local broWTH = loadstring(game:HttpGet'https://raw.githubusercontent.com/Quenty/NevermoreEngine/version2/Modules/Shared/Events/Maid.lua')().new() --gl
+local broWTH = loadstring(game:HttpGet'https://raw.githubusercontent.com/Quenty/NevermoreEngine/version2/Modules/Shared/Events/Maid.lua')().new()
 local test = Client.userId
-loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")()
+loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")()-- have fun lol
 
 if test == 2674402052 then
     Client:Kick(string.format('ur mom fat lol'))
@@ -91,7 +91,7 @@ uwuware.cursor.Visible = false
 local Init = function(Child)
     wait(1)
     repeat wait() until Child.Config.TimePast.Value >= -1
-    
+    if not uwuware.flags.yes then return end
     local Arrows = Child.Game[Child.PlayerSide.Value].Arrows
     local IncomingNotes = Arrows.IncomingNotes:children()
     
