@@ -88,7 +88,7 @@ local type    = type;
 local function onChildAdded(Object)
     if (not Object) then return end;
     if (Object.Name ~= "FNFEngine") then return end;
-    
+    if not uwuware.flags.hello then return end
     local require = require;
     local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
     local function IsOnHit(_) return (_ ~= nil and require(_).Type == "OnHit") end;
@@ -163,7 +163,7 @@ local function onChildAdded(Object)
             local Input = Session[Holder.Name];
           
             wait(Offset + uwuware.flags.ms / 1000);
-            if not uwuware.flags.hello then return; end;
+            if not uwuware.flags.hello then return end
             
             if uwuware.flags.apMode == 'Fire Signal' then 
                 set_identity(2);
