@@ -44,8 +44,8 @@ local toggle = FolderMain:AddToggle({text = "AutoPlayer", flag = "hello", state 
 FolderMain:AddList({ text = 'Hit mode', flag = 'apMode', values = {'Fire Signal', 'Virtual Input'}})
 FolderMain:AddBind({ text = 'Autoplayer toggle', flag = 'hello', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
 FolderMain:AddSlider({ text= 'Hit Offset (ms)',flag = "ms", min = -100, max = 100, value = -10}) --discovered that this is ss dependant lol
-FolderMain:AddBind({ text = 'commit kys', flag = 'lmao', key = Enum.KeyCode.PageUp, callback = function() Client.Character:BreakJoints() end})
-
+--FolderMain:AddBind({ text = 'commit kys', flag = 'lmao', key = Enum.KeyCode.PageUp, callback = function() Client.Character:BreakJoints() end})
+--partially removed due to bugs with the ap itself
 Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() uwuware:Close() end})
 
 CreditsFolder:AddLabel({text = "Tweaked by Mati278 & stavratum"})
