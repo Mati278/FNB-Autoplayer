@@ -22,11 +22,11 @@ local Offsets = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mati27
 local Keys = {
     [4] = { Left = "Left", Down = "Down", Up = "Up", Right = "Right" },
     [5] = { Left = "Left", Down = "Down", Space = "Space", Up = "Up", Right = "Right" },
-    [6] = { S = "R3", D = "R2", F = "R1", J = "L1", K = "L2", L = "L3" },
-    [7] = { S = "R3", D = "R2", F = "R1", Space = "Space", J = "L1", K = "L2", L = "L3" },
+    [6] = { S = "L3", D = "L2", F = "L1", J = "R1", K = "R2", L = "R3" },
+    [7] = { S = "L3", D = "L2", F = "L1", Space = "Space", J = "R1", K = "R2", L = "R3" },
     [8] = { A = "L4", S = "L3", D = "L2", F = "L1", H = "R1", J = "R2", K = "R3", L = "R4" },
     [9] = { A = "L4", S = "L3", D = "L2", Space = "Space", F = "L1", H = "R1", J = "R2", K = "R3", L = "R4" }
-};
+}
 
 local uwuware = loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/gfx.lua')()
 local Window = uwuware:CreateWindow"FNB Auto Play"
