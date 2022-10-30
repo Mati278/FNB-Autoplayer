@@ -37,7 +37,7 @@ local CreditsFolder = Window:AddFolder("Credits")
 local toggle = FolderMain:AddToggle({text = "AutoPlayer", flag = "hello", state = true})
 FolderMain:AddList({ text = 'Hit mode', flag = 'apMode', values = {'Virtual Input', 'Fire Signal'}})
 FolderMain:AddBind({ text = 'Autoplayer toggle', flag = 'hello', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
-FolderMain:AddSlider({ text= 'Hit Offset (ms)',flag = "ms", min = -100, max = 100, value = 0}) --no longer ss dependant lol
+FolderMain:AddSlider({ text= 'Hit Offset (ms)',flag = "ms", min = -100, max = 100, value = -5}) --no longer ss dependant lol
 FolderMain:AddBind({ text = 'commit kys', flag = 'lmao', key = Enum.KeyCode.PageUp, callback = function() Client.Character:BreakJoints() end})
 
 Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() uwuware:Close() end})
