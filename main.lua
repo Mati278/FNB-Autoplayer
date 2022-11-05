@@ -79,7 +79,7 @@ Window:AddButton{text="Old ver (aka kiwi ver)",callback=function()
 end}     
 uwuware:Init()
 
-local VirtualInputManager = game:GetService "VirtualInputManager";
+local VirtualInputManager = (getvirtualinputmanager or game.GetService)(game, "VirtualInputManager")
 local InputService = game:GetService "UserInputService";
 local HttpService = game:GetService "HttpService";
 local task    = task;
