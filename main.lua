@@ -69,14 +69,14 @@ Window:AddButton{text="Instant Solo",callback=function()
 end}
 
 Window:AddLabel({text="^ useless now ^"})
-Window:AddButton{text="Old ver (aka kiwi ver)",callback=function()
+--[[Window:AddButton{text="kiwi ver)",callback=function()
     for _,Function in pairs(Connected) do
         Function:Disconnect()
     end
     uwuware.base:Destroy()
     script:Destroy()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/hello-again-lol/main/real.lua')()
-end}     
+end}--]]     
 uwuware:Init()
 
 local VirtualInputManager = (getvirtualinputmanager or game.GetService)(game, "VirtualInputManager")
