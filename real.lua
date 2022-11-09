@@ -30,17 +30,14 @@ local namecall = mt.__namecall
 
 if _G.NewUI == false then
     local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
-    local Window = OrionLib:MakeWindow({IntroText = "robo sucks my dick 24/7",Name = "hello", HidePremium = true, SaveConfig = false})
-    local Folder = Window:MakeTab({
-	    Name = "Main",
-    	Icon = "rbxassetid://4483345998",
-	    PremiumOnly = false
-    })
-    local Toggle = VisualsTab:AddToggle({
-	Name = "Autoplayer",
-	Default = true,
-    Flag = "Sus",
-	Callback = function() end})
+    local Window = Library:MakeWindow({IntroText = "robo sucks my dick 24/7",Name = "hello", HidePremium = true, SaveConfig = false})
+    local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+    local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+    local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "Sus"})
+    Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.End, Hold = false,Callback = function() Toggle:Set(not Toggle.Value) end})
+    local Special = Folder:AddToggle({Name = "Hit gimmick notes", Default = true, Flag = "Special"})
+    Folder:AddBind({Name = "Thing above", Default = Enum.KeyCode.End, Hold = false,Callback = function() Special:Set(not Special.Value) end})
+    Folder:AddButton({Name = "Unload script", Callback = function() Library:Destroy() end})
 else
     local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))()
     local Window = Library:CreateWindow("hi") do
