@@ -14,9 +14,9 @@ local connections = {
     end
 };
 
-local Client = game:GetService"Players".LocalPlayer;
-local Input = Client:WaitForChild"Input";
-local PlayerGui = Client.PlayerGui;
+local Client = game:GetService"Players".LocalPlayer
+local Input = Client:WaitForChild"Input"
+local PlayerGui = Client.PlayerGui
 loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
 local Offsets = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/Offsets.lua")()
 local Keys = {
@@ -28,56 +28,38 @@ local Keys = {
     [9] = { A = "L4", S = "L3", D = "L2", Space = "Space", F = "L1", H = "R1", J = "R2", K = "R3", L = "R4" }
 }
 
-local uwuware = loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/gfx.lua')()
-local Window = uwuware:CreateWindow"FNB Auto Play"
-local FolderMain = Window:AddFolder("main") 
-
-local CreditsFolder = Window:AddFolder("Credits")
-
-local toggle = FolderMain:AddToggle({text = "AutoPlayer", flag = "hello", state = true})
-FolderMain:AddList({ text = 'Hit mode', flag = 'apMode', values = {'Virtual Input', 'Fire Signal'}})
-FolderMain:AddBind({ text = 'Autoplayer toggle', flag = 'hello', key = Enum.KeyCode.End, callback = function() toggle:SetState(not toggle.state) end})
-FolderMain:AddSlider({ text= 'Hit Offset (ms)',flag = "ms", min = -100, max = 100, value = -5}) --no longer ss dependant lol
-FolderMain:AddBind({ text = 'commit kys', flag = 'lmao', key = Enum.KeyCode.PageUp, callback = function() Client.Character:BreakJoints() end})
-
-Window:AddBind({ text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() uwuware:Close() end})
-
-CreditsFolder:AddLabel({text = "Tweaked by Mati278 & stavratum"})
-CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
-CreditsFolder:AddLabel({text = "    "})
-CreditsFolder:AddLabel({text = "version 2.73"})
-
-Window:AddLabel({text= "fixed tons of shit"})
-Window:AddLabel({text= "reworked unload"})
-Window:AddButton{text="Unload script",callback=function()
-    uwuware.flags.hello = false
-    (syn and syn.set_thread_identity or setidentity or setthreadcontext)(7)
-    connections:disconnect()
-    uwuware.base:Destroy()
-end}
-
-FolderMain:AddButton{text="Disable modcharts",callback=function()
-    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/thing.lua')()
-    game:GetService("StarterGui"):SetCore("SendNotification", { 
-        Title = "Note";
-        Text = "You need to rejoin to re-enable modcharts";
-        Icon = "rbxthumb://type=Asset&id=8370951801&w=420&h=420"})
-end} 
-
-Window:AddButton{text="Instant Solo",callback=function()
-    Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer()
-end}
-
-Window:AddLabel({text="^ useless now ^"})
---[[Window:AddButton{text="kiwi ver)",callback=function()
-    for _,Function in pairs(Connected) do
-        Function:Disconnect()
-    end
-    uwuware.base:Destroy()
+local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+local Window = Library:MakeWindow({IntroText = "Mati278's Funny FNB Autoplayer v2.8",Name = "Friday Night Bloxxin' Autoplayer", HidePremium = true, SaveConfig = false})
+local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://2484564290", PremiumOnly = false})
+local ExtrasFolder = Window:MakeTab({Name = "Extras", Icon = "rbxassetid://7468828225", PremiumOnly = false})
+local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "hello"})
+Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.Delete, Hold = false,Callback = function() Toggle:Set(not Toggle.Value) end})
+Folder:AddSlider({Name = "Hit offset", Min = -100, Max = 100, Default = -10, Color = Color3.fromRGB(255,255,255), Increment = 1, Flag = "ms" })
+--no fire signal bc roblox bad
+--Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode"})
+Folder:AddButton({Name = "Disable modcharts", Callback = function() loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/thing.lua')() Library:MakeNotification({Name = "Note", Content = "You need to rejoin in order to re-enable modcharts", Image = "rbxassetid://8370951784", Time = 5}) end})
+CreditsFolder:AddLabel("Made by Mati278")
+CreditsFolder:AddLabel("AC Bypass & extra help by stavratum")
+CreditsFolder:AddLabel("UI Library by shlexware")
+ExtrasFolder:AddButton({Name = "Unload script", Callback = function()
+    Library:Destroy()
+    set_identity(7);
+    connections:disconnect();
     script:Destroy()
-    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/hello-again-lol/main/real.lua')()
-end}--]]     
-uwuware:Init()
+end})
+ExtrasFolder:AddButton({Name = "Instant Solo (useless atm)", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
+ExtrasFolder:AddButton({Name = "Load old version", Callback = function() 
+    Library:Destroy()
+Library:Destroy()
+    set_identity(7);
+    connections:disconnect();
+    script:Destroy()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/hello-again-lol/main/real.lua')() 
+end})
+
+Library:Init()
 
 local VirtualInputManager = (getvirtualinputmanager or game.GetService)(game, "VirtualInputManager")
 local InputService = game:GetService "UserInputService";
@@ -88,22 +70,8 @@ local type    = type;
 local function onChildAdded(Object)
     if (not Object) then return end;
     if (Object.Name ~= "FNFEngine") then return end;
-    if not uwuware.flags.hello then return end
-    local require = require;
-    local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
+    local require = require
     local function IsOnHit(_) return (_ ~= nil and require(_).Type == "OnHit") end;
-    
-    local function GetInputFunction()
-        local inputFunction;
-        set_identity(2);
-        for _, v in pairs(getconnections(InputService.InputBegan)) do
-            if getfenv(v.Function).script.Name == "Client" then
-                inputFunction = v.Function;
-            end;
-        end;
-        set_identity(7);
-        return inputFunction;
-    end;
     
     local function Filter(iter, method)
         local returns = {};
@@ -149,7 +117,6 @@ local function onChildAdded(Object)
     end;
     
     local begin = Enum.UserInputState.Begin;
-    local inputFunction = GetInputFunction();
     local spawn = task.spawn;
     local wait = task.wait;
     
@@ -162,24 +129,8 @@ local function onChildAdded(Object)
             if (Arrow.HellNote.Value) and (PoisonNotes) or IsOnHit(Arrow:FindFirstChildOfClass"ModuleScript") or (not Arrow.Visible) then return; end;
             local Input = Session[Holder.Name];
           
-            wait(Offset + uwuware.flags.ms / 1000);
-            if not uwuware.flags.hello then return end
-            
-            if uwuware.flags.apMode == 'Fire Signal' then 
-                set_identity(2);
-                    
-                spawn(inputFunction, {
-                    KeyCode = Input,
-                    UserInputState = begin
-                });
-              
-                local Bar = Arrow.Frame.Bar;
-                while Bar.Size.Y.Scale >= 0.6 do
-                    wait();
-                end
-              
-                spawn(inputFunction, { KeyCode = Input });
-            else
+            wait(Offset + Library.Flags["ms"].Value / 1000);
+            if Library.Flags["hello"].Value then                
                 VirtualInputManager:SendKeyEvent(true, Input, false, nil);
                 local Bar = Arrow.Frame.Bar;
                 while Bar.Size.Y.Scale >= 0.6 do
