@@ -26,8 +26,8 @@ local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlex
 
 local Window = Library:MakeWindow({IntroText = "robo sucks my dick 24/7",Name = "hello", HidePremium = true, SaveConfig = false})
 local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-local ExtrasFolder = Window:MakeTab({Name = "Extras", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://2484564290", PremiumOnly = false})
+local ExtrasFolder = Window:MakeTab({Name = "Extras", Icon = "rbxassetid://7468828225", PremiumOnly = false}
 local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = false, Flag = "Sus"})
 Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.Delete, Hold = false,Callback = function() Toggle:Set(not Toggle.Value) end})
 local SpToggle = Folder:AddToggle({Name = "Hit gimmick notes", Default = false, Flag = "Special"})
