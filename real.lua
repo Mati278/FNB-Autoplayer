@@ -1,12 +1,11 @@
---[[_G.NewUI = true
-if not game:IsLoaded() the game.Loaded:Wait() end
+if not game:IsLoaded() then game.Loaded:Wait() end
 
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local InputService = game:GetService("UserInputService")
-local InputManager
-
+local InputManager = getvirtualinputmanager or game:GetService("VirtualInputManager")
+loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")()
 local Client = game:GetService("Players").LocalPlayer
 local PlayerGui = Client:WaitForChild("PlayerGui")
 
@@ -23,65 +22,27 @@ local KeysTable = {
     ["9"] = {A = "L4", S = "L3", D = "L2", F = "L1", Space = "Space", H = "R1", J = "R2", K = "R3", L = "R4"}
 }
 
-local mt = getrawmetatable(game)
-make_writeable(mt)
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 
-local namecall = mt.__namecall
+local Window = Library:MakeWindow({IntroText = "robo sucks my dick 24/7",Name = "hello", HidePremium = true, SaveConfig = false})
+local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local ExtrasFolder = Window:MakeTab({Name = "Extras", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = false, Flag = "Sus"})
+Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.Delete, Hold = false,Callback = function() Toggle:Set(not Toggle.Value) end})
+local SpToggle = Folder:AddToggle({Name = "Hit gimmick notes", Default = false, Flag = "Special"})
+Folder:AddBind({Name = "Thing above", Default = Enum.KeyCode.End, Hold = false,Callback = function() SpToggle:Set(not SpToggle.Value) end})
+CreditsFolder:AddLabel("Original script by Kaiden#2444")
+CreditsFolder:AddLabel("Tweaked by Mati278 & o5u3/Kiwi")
+CreditsFolder:AddLabel("AC Bypass by stavratum")
+CreditsFolder:AddLabel("UI Library by shlexware")
+ExtrasFolder:AddButton({Name = "Unload script", Callback = function() Toggle:Set(false) SpToggle:Set(false) RunService:ClearAllChildren() Library:Destroy() end})
+ExtrasFolder:AddButton({Name = "Instant Solo (useless atm)", Callback = function() game:GetService'Players'.LocalPlayer.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
+ExtrasFolder:AddButton({Name = "Unload script", Callback = function() Toggle:Set(false) SpToggle:Set(false) RunService:ClearAllChildren() Library:Destroy() loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/main.lua"))() end})
 
-if _G.NewUI == false then
-    local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
-    local Window = Library:MakeWindow({IntroText = "robo sucks my dick 24/7",Name = "hello", HidePremium = true, SaveConfig = false})
-    local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-    local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-    local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "Sus"})
-    Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.End, Hold = false,Callback = function() Toggle:Set(not Toggle.Value) end})
-    local Special = Folder:AddToggle({Name = "Hit gimmick notes", Default = true, Flag = "Special"})
-    Folder:AddBind({Name = "Thing above", Default = Enum.KeyCode.End, Hold = false,Callback = function() Special:Set(not Special.Value) end})
-    Folder:AddButton({Name = "Unload script", Callback = function() Library:Destroy() end})
-else
-    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))()
-    local Window = Library:CreateWindow("hi") do
-    local Folder = Window:AddFolder("Autoplayer") do
-    local toggle = Folder:AddToggle({text = "AutoPlayer", flag = "Sus", state = true})
-    Window:AddLabel({text= "U did a good job, Kiwi."})
-    Folder:AddBind({ text = 'Autoplayer toggle', flag = 'Sus', key = Enum.KeyCode.Home, callback = function() toggle:SetState(not toggle.state) end})
-    local special = Folder:AddToggle({text = "Hit gimmick notes", flag = "SpecialNotes"})
-    Folder:AddBind({ text = 'Thing above', flag = 'SpecialNotes', key = Enum.KeyCode.PageDown, callback = function() special:SetState(not special.state) end})
-    Window:AddBind({text = "Hide/show menu", key = Enum.KeyCode.Delete, callback = function() Library:Close() end})
-    CreditsFolder:AddLabel({text = "Original Script: Kaiden#2444"})
-    CreditsFolder:AddLabel({text = "Thanks to KiwisASkid 4 help"})
-    CreditsFolder:AddLabel({text = "Also hi stav"})
-    CreditsFolder:AddLabel({text = "UI Library: Jan & Wally"})
-    Window:AddButton({ text = 'Unload script', callback = function() 
-        toggle:SetState(false)
-        special:SetState(false)
-        HttpService:GenerateGUID(false)
-        if Library.open then Library:Close() end
-        pcall(function()
-            RunService:ClearAllChildren()
-            Library.base:ClearAllChildren()
-            Library.base:Destroy()         
-        end)
-    end })
-    Window:AddButton{text="Instant Solo",callback=function()
-        Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer()
-    end}
-    Window:AddButton({ text = 'Load new version', callback = function()  
-        toggle:SetState(false)
-        special:SetState(false)
-        HttpService:GenerateGUID(false)
-        if Library.open then Library:Close() end
-        pcall(function()
-            RunService:ClearAllChildren()
-            Library.base:ClearAllChildren()
-            Library.base:Destroy()  
-        end)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/main.lua"))()
-    end })
-end
 
 RunService.Heartbeat:Connect(function()
-    if not Library.flags.Sus then return end
+    if not Library.Flags["Sus"].Value then return end
     if not Menu or not Menu.Parent then return end
     if Menu.Config.TimePast.Value <= 0 then return end
     
@@ -111,7 +72,7 @@ RunService.Heartbeat:Connect(function()
                 Marked[#Marked + 1] = Object
 
                 InputManager:SendKeyEvent(true, Enum.KeyCode[Keybind], false, nil)
-                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= 0
+                repeat task.wait() until not Object or not Object:FindFirstChild("Frame") or Object.Frame.Bar.Size.Y.Scale <= -1
                 InputManager:SendKeyEvent(false, Enum.KeyCode[Keybind], false, nil)
             end
         end
@@ -141,4 +102,5 @@ local Old; Old = hookmetamethod(game, "__newindex", newcclosure(function(self, .
     if self == Humanoid and Property == "Health" and not checkcaller() then return end
     
     return Old(self, ...)
+    
 end))
