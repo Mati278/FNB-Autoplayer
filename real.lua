@@ -38,7 +38,7 @@ CreditsFolder:AddLabel("AC Bypass by stavratum")
 CreditsFolder:AddLabel("UI Library by shlexware")
 ExtrasFolder:AddButton({Name = "Unload script", Callback = function() Toggle:Set(false) SpToggle:Set(false) RunService:ClearAllChildren() Library:Destroy() end})
 ExtrasFolder:AddButton({Name = "Instant Solo (useless atm)", Callback = function() game:GetService'Players'.LocalPlayer.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
-ExtrasFolder:AddButton({Name = "Unload script", Callback = function() Toggle:Set(false) SpToggle:Set(false) RunService:ClearAllChildren() Library:Destroy() loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/main.lua"))() end})
+ExtrasFolder:AddButton({Name = "Load new version", Callback = function() Toggle:Set(false) SpToggle:Set(false) RunService:ClearAllChildren() Library:Destroy() loadstring(game:HttpGet("https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/main.lua"))() end})
 
 
 RunService.Heartbeat:Connect(function()
