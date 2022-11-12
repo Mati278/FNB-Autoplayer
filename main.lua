@@ -40,6 +40,7 @@ Folder:AddSlider({Name = "Hit offset", Min = -100, Max = 100, Default = -10, Col
 --no fire signal bc roblox bad
 --Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode"})
 Folder:AddButton({Name = "Disable modcharts", Callback = function() loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/thing.lua')() Library:MakeNotification({Name = "Note", Content = "You need to rejoin in order to re-enable modcharts", Image = "rbxassetid://8370951784", Time = 5}) end})
+Folder:AddBind({Name = "Reset", Default = Enum.KeyCode.PageUp, Hold = false,Callback = function() Client.Character:BreakJoints() end})
 CreditsFolder:AddLabel("Made by Mati278")
 CreditsFolder:AddLabel("AC Bypass & extra help by stavratum")
 CreditsFolder:AddLabel("UI Library by shlexware")
