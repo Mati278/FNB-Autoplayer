@@ -36,7 +36,7 @@ local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://248
 local ExtrasFolder = Window:MakeTab({Name = "Extras", Icon = "rbxassetid://7468828225", PremiumOnly = false})
 local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "hello"})
 Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.Delete, Hold = false,Callback = function() Toggle:Set(not Toggle.Value) end})
-local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -50, Max = 50, Default = -12, Color = Color3.fromRGB(255,255,255), Increment = 0.5, Flag = "ms" })
+local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -50, Max = 50, Default = -12, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms" })
 Folder:AddTextbox({Name = "above", Default = "-12", extDisappear = false, Callback = function(Value) OffsetToggle:Set(Value) end})
 --no fire signal bc roblox bad
 --Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode"})
