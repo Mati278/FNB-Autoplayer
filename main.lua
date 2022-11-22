@@ -35,8 +35,8 @@ local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", 
 local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://2484564290", PremiumOnly = false})
 local ExtrasFolder = Window:MakeTab({Name = "Extras", Icon = "rbxassetid://7468828225", PremiumOnly = false})
 local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "hello"})
-Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.Delete, Hold = false,Callback = function() Toggle:Set(not Toggle.Value) end})
-local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -50, Max = 50, Default = -12, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms" })
+Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.End, Hold = false,Callback = function() Toggle:Set(not Toggle.Value) end})
+local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -50, Max = 50, Default = -5, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms" })
 Folder:AddTextbox({Name = "above", Default = "-12", extDisappear = false, Callback = function(Value) OffsetToggle:Set(Value) end})
 --no fire signal bc roblox bad
 --Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode"})
@@ -104,6 +104,7 @@ local function onChildAdded(Object)
             (Song.Parent:FindFirstChild"MultiplieGimmickNotes" or Song:FindFirstChild"GimmickNotes" or
             Song.Parent:FindFirstChild"GimmickNotes" or
             Song:FindFirstChild"MineNotes" or {} ).Value == "OnHit";
+        print(tostring(Song))
     end;
     
     local Keybinds = Input.Keybinds;
