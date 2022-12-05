@@ -14,7 +14,8 @@ local connections = {
     end
 };
 
-local Client = game:GetService"Players".LocalPlayer
+local Players = game:GetService'Players'
+local Client = Players.LocalPlayer
 local Input = Client:WaitForChild"Input"
 local PlayerGui = Client.PlayerGui
 loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
@@ -52,6 +53,7 @@ ExtrasFolder:AddButton({Name = "Unload script", Callback = function()
     script:Destroy()
 end})
 ExtrasFolder:AddButton({Name = "Instant Solo (useless atm)", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
+ExtrasFolder:AddButton({Name = "TP To John Bomb (gives badge but not the anim)", Callback = function() game:GetService'TeleportService':Teleport(9229851010, Players.LocalPlayer) end})
 ExtrasFolder:AddButton({Name = "Load old version", Callback = function() 
     Library:Destroy()
 Library:Destroy()
