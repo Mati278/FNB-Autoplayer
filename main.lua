@@ -3,7 +3,6 @@ local connections = {
     add = function(self, signal, onFire)
         self[#self + 1] = signal:Connect(onFire);
     end,
-  
     disconnect = function(self)
         for i,v in pairs(self) do
             if type(v) == "userdata" and v.Connected then
