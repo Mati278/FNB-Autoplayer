@@ -15,8 +15,6 @@ local connections = {
 local SplashIndex = math.random(1,11)
 local SplashText
 
-you will to be silenced
-
 if SplashIndex == 1 then SplashText = 'hi guys hows doin there' end
 if SplashIndex == 2 then SplashText = 'when Blue Pokemon (Encore) - Vs. Documic.txt Reformatted OST is going to be added' end
 if SplashIndex == 3 then SplashText = 'Did u know that that in terms of male human and female pokemon breeding...' end
