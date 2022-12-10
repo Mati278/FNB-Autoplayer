@@ -12,8 +12,10 @@ local connections = {
         table.clear(self)
     end
 };
-local SplashIndex = math.random(1,8)
+local SplashIndex = math.random(1,11)
 local SplashText
+
+you will to be silenced
 
 if SplashIndex == 1 then SplashText = 'hi guys hows doin there' end
 if SplashIndex == 2 then SplashText = 'when Blue Pokemon (Encore) - Vs. Documic.txt Reformatted OST is going to be added' end
@@ -23,6 +25,9 @@ if SplashIndex == 5 then SplashText = 'discord.gg/pizzahut worst place ever' end
 if SplashIndex == 6 then SplashText = 'amogus ඞ' end
 if SplashIndex == 7 then SplashText = 'Go play PFN instead' end
 if SplashIndex == 8 then SplashText = 'swish i fixed the autoplayer for u :)' end
+if SplashIndex == 9 then SplashText = 'nah my man fq0e, kill urself instead u gigantic faggot' end
+if SplashIndex == 10 then SplashText = 'you will to be silenced' end --credits to Oveja3928! (yt)
+if SplashIndex == 11 then SplashText = 'Are u winning, son?' end --credits to Skeleton19!
 
 local Players = game:GetService'Players'
 local Client = Players.LocalPlayer
@@ -66,7 +71,6 @@ ExtrasFolder:AddButton({Name = "Instant Solo (useless atm)", Callback = function
 ExtrasFolder:AddButton({Name = "TP To John Bomb (gives badge but not the anim)", Callback = function() game:GetService'TeleportService':Teleport(9229851010, Players.LocalPlayer) end})
 ExtrasFolder:AddButton({Name = "Load old version", Callback = function() 
     Library:Destroy()
-Library:Destroy()
     set_identity(7);
     connections:disconnect();
     script:Destroy()
