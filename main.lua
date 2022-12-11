@@ -52,8 +52,7 @@ local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "he
 Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.End, Hold = false,Callback = function() Toggle:Set(not Toggle.Value) end})
 local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -50, Max = 50, Default = 0, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms" })
 Folder:AddTextbox({Name = "above", Default = "0", extDisappear = false, Callback = function(Value) OffsetToggle:Set(Value) end})
---no fire signal bc roblox bad
---Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode"})
+Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode"})
 Folder:AddButton({Name = "Disable modcharts", Callback = function() loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/thing.lua')() Library:MakeNotification({Name = "Note", Content = "You need to rejoin in order to re-enable modcharts", Image = "rbxassetid://8370951784", Time = 5}) end})
 Folder:AddBind({Name = "Reset", Default = Enum.KeyCode.PageUp, Hold = false,Callback = function() Client.Character:BreakJoints() end})
 CreditsFolder:AddLabel("Made by Mati278")
@@ -88,6 +87,18 @@ local function onChildAdded(Object)
     if (Object.Name ~= "FNFEngine") then return end;
     local require = require
     local function IsOnHit(_) return (_ ~= nil and require(_).Type == "OnHit") end;
+    
+    local function GetInputFunction()
+        local inputFunction;
+        set_identity(2);
+        for _, v in pairs(getconnections(InputService.InputBegan)) do
+            if getfenv(v.Function).script.Name == "Client" then
+                inputFunction = v.Function;
+            end;
+        end;
+        set_identity(7);
+        return inputFunction;
+    end;
     
     local function Filter(iter, method)
         local returns = {};
@@ -133,6 +144,7 @@ local function onChildAdded(Object)
         Session[kn] = Enum.KeyCode[ Keybinds[kv].Value ];
     end;
     
+    local inputFunction = GetInputFunction();
     local begin = Enum.UserInputState.Begin;
     local spawn = task.spawn;
     local wait = task.wait;
@@ -147,7 +159,22 @@ local function onChildAdded(Object)
             local Input = Session[Holder.Name];
           
             wait(Offset + Library.Flags["ms"].Value / 1000);
-            if Library.Flags["hello"].Value then                
+            if not Library.Flags["hello"].Value then return end                
+            if Library.Flags["apMode"].Value == 'Fire Signal' then
+                set_identity(2);
+                    
+                spawn(inputFunction, {
+                    KeyCode = Input,
+                    UserInputState = begin
+                });
+              
+                local Bar = Arrow.Frame.Bar;
+                while Bar.Size.Y.Scale >= 0.6 do
+                    wait();
+                end
+                
+                spawn(inputFunction, { KeyCode = Input });
+            else  
                 VirtualInputManager:SendKeyEvent(true, Input, false, nil);
                 local Bar = Arrow.Frame.Bar;
                 while Bar.Size.Y.Scale >= 0.6 do
