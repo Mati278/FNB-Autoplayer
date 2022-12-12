@@ -64,7 +64,7 @@ ExtrasFolder:AddButton({Name = "Unload script", Callback = function()
     connections:disconnect();
     script:Destroy()
 end})
-ExtrasFolder:AddButton({Name = "Instant Solo (useless atm)", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
+ExtrasFolder:AddButton({Name = "Instant Solo", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
 ExtrasFolder:AddButton({Name = "TP To John Bomb (gives badge but not the anim)", Callback = function() game:GetService'TeleportService':Teleport(9229851010, Players.LocalPlayer) end})
 ExtrasFolder:AddButton({Name = "Load old version", Callback = function() 
     Library:Destroy()
