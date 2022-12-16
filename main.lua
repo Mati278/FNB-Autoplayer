@@ -27,8 +27,7 @@ if SplashIndex == 9 then SplashText = 'nah my man fq0e, kill urself instead u gi
 if SplashIndex == 10 then SplashText = 'you will to be silenced' end --credits to Oveja3928! (yt)
 if SplashIndex == 11 then SplashText = 'Are u winning, son?' end --credits to Skeleton19!
 
-local Players = game:GetService'Players'
-local Client = Players.LocalPlayer
+local Client = game:GetService'Players'.LocalPlayer
 local Input = Client:WaitForChild"Input"
 local PlayerGui = Client.PlayerGui
 loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
@@ -65,7 +64,7 @@ ExtrasFolder:AddButton({Name = "Unload script", Callback = function()
     script:Destroy()
 end})
 ExtrasFolder:AddButton({Name = "Instant Solo", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
-ExtrasFolder:AddButton({Name = "TP To John Bomb (gives badge but not the anim)", Callback = function() game:GetService'TeleportService':Teleport(9229851010, Players.LocalPlayer) end})
+ExtrasFolder:AddButton({Name = "TP To John Bomb (gives badge but not the anim)", Callback = function() game:GetService'TeleportService':Teleport(9229851010, Client) end})
 ExtrasFolder:AddButton({Name = "Load old version", Callback = function() 
     Library:Destroy()
     set_identity(7);
