@@ -13,7 +13,7 @@ end
 local SettingValue
 local Setting
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
-local Window = Library:MakeWindow({IntroText = yes,Name = "fnb setting thing", HidePremium = true})
+local Window = Library:MakeWindow({IntroText = 'yes' ,Name = "fnb setting thing", HidePremium = true})
 local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 Folder:AddTextbox({Name = "Setting value", Default = "1", extDisappear = false, Callback = function(Value) SettingValue = Value end})
 Folder:AddTextbox({Name = "Setting to change", Default = "ScrollSpeed", extDisappear = false, Callback = function(Value) Setting = Value end})
