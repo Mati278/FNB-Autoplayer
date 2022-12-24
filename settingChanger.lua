@@ -17,6 +17,7 @@ local Window = Library:MakeWindow({IntroText = 'yes' ,Name = "fnb setting thing"
 local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 Folder:AddTextbox({Name = "Setting value", Default = "1", extDisappear = false, Callback = function(Value) SettingValue = Value end})
 Folder:AddTextbox({Name = "Setting to change", Default = "ScrollSpeed", extDisappear = false, Callback = function(Value) Setting = Value end})
+Folder:AddLabel('You can use Dex to see the available settings!')
 local function Apply()
     game:GetService'ReplicatedStorage'.Events.RemoteEvent:FireServer("Input", tostring(SettingValue), tostring(Setting))
 end        
