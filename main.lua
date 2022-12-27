@@ -56,6 +56,7 @@ Folder:AddTextbox({Name = "above", Default = "0", extDisappear = false, Callback
 Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode", Save = true})
 Folder:AddButton({Name = "Disable modcharts", Callback = function() loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/thing.lua')() Library:MakeNotification({Name = "Note", Content = "You need to rejoin in order to re-enable modcharts", Image = "rbxassetid://8370951784", Time = 5}) end})
 Folder:AddBind({Name = "Reset", Default = Enum.KeyCode.PageUp, Hold = false, Flag = 'lmao', Save = true, Callback = function() Client.Character:BreakJoints() end})
+Folder:AddToggle({Name = 'Anti Indie Cross', Default = false, Flag = 'getReal', Save = true})
 CreditsFolder:AddLabel("Made by Mati278")
 CreditsFolder:AddLabel("AC Bypass & extra help by stavratum")
 CreditsFolder:AddLabel("UI Library by shlexware")
@@ -133,6 +134,11 @@ local function onChildAdded(Object)
             Song:FindFirstChild"MineNotes" or {} ).Value == "OnHit";
         print(tostring(Song))
     end;
+    
+    if game:GetService'ReplicatedStorage'.Songs['Indie Cross'] and Library.Flags.getReal.Value then
+        Library:MakeNotification({Name = "Warning!", Content = "Indie Cross detected; resetting...", Image = "rbxassetid://8370951784", Time = 3})
+        Client.Character:BreakJoints()
+    end
     
     local Keybinds = Input.Keybinds;
     local Session = {};
