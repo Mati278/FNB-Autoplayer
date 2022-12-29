@@ -12,7 +12,7 @@ local connections = {
         table.clear(self)
     end
 };
-local spLimit = 12
+local spLimit = 11
 local SplashIndex = math.random(1,spLimit)
 local SplashText
 
@@ -42,6 +42,21 @@ local Keys = {
     [9] = { A = "L4", S = "L3", D = "L2", Space = "Space", F = "L1", H = "R1", J = "R2", K = "R3", L = "R4" }
 }
 
+local oldhmmi
+local oldhmmnc
+oldhmmi = hookmetamethod(game, "__index", function(self, method)
+    if self == Client and method:lower() == "kick" then
+        return error("Expected ':' not '.' calling member function Kick", 2)
+    end
+    return oldhmmi(self, method)
+end)
+oldhmmnc = hookmetamethod(game, "__namecall", function(self, ...)
+    if self == Client and getnamecallmethod():lower() == "kick" then
+        return
+    end
+    return oldhmmnc(self, ...)
+end)
+
 local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 local Window = Library:MakeWindow({IntroText = tostring(SplashText),Name = "Friday Night Bloxxin' Autoplayer", HidePremium = true, SaveConfig = true, ConfigFolder = 'fnb ap probably'})
@@ -52,10 +67,19 @@ local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "he
 Folder:AddBind({Name = "AP toggle", Default = Enum.KeyCode.End, Hold = false, Flag = 'helloT', Save = true, Callback = function() Toggle:Set(not Toggle.Value) end})
 local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -50, Max = 50, Default = 0, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms", Save = true})
 Folder:AddTextbox({Name = "above", Default = "0", extDisappear = false, Callback = function(Value) OffsetToggle:Set(Value) end})
-Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode", Save = true})
+local Mode = Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode", Save = true})
+local function ModeSwitch()
+    if Library.Flags["apMode"].Value == 'Fire Signal' then
+        Mode:Set("Virtual Input")
+        Library:MakeNotification({Name = "Input mode switch", Content = "Current mode:"..' '..tostring(Library.Flags["apMode"].Value), Image = "rbxassetid://8370951784", Time = 3})
+    else
+        Mode:Set("Fire Signal")
+        Library:MakeNotification({Name = "Input mode switch", Content = "Current mode:"..' '..tostring(Library.Flags["apMode"].Value), Image = "rbxassetid://8370951784", Time = 3})
+    end
+end
+Folder:AddBind({Name = "Switch modes", Default = Enum.KeyCode.Home, Hold = false, Flag = 'apST', Save = true, Callback = function() ModeSwitch() end})
 Folder:AddButton({Name = "Disable modcharts", Callback = function() loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/thing.lua')() Library:MakeNotification({Name = "Note", Content = "You need to rejoin in order to re-enable modcharts", Image = "rbxassetid://8370951784", Time = 5}) end})
 Folder:AddBind({Name = "Reset", Default = Enum.KeyCode.PageUp, Hold = false, Flag = 'lmao', Save = true, Callback = function() Client.Character:BreakJoints() end})
---Folder:AddToggle({Name = 'Anti Indie Cross', Default = false, Flag = 'getReal', Save = true})
 CreditsFolder:AddLabel("Made by Mati278")
 CreditsFolder:AddLabel("AC Bypass & extra help by stavratum")
 CreditsFolder:AddLabel("UI Library by shlexware")
@@ -109,7 +133,7 @@ local function onChildAdded(Object)
         end;
         return returns;
     end;
-    
+
     local Stage = Object.Stage.Value;
     while (not Stage.Config.Song.Value) do
         Object.Config.TimePast.Changed:Wait();
@@ -134,11 +158,6 @@ local function onChildAdded(Object)
         print(tostring(Song))
     end;
     
-    --[[if game:GetService'ReplicatedStorage'.Songs['Indie Cross'] and Library.Flags.getReal.Value then
-        Library:MakeNotification({Name = "Warning!", Content = "Indie Cross detected; resetting...", Image = "rbxassetid://8370951784", Time = 3})
-        Client.Character:BreakJoints()
-    end]]
-    
     local Keybinds = Input.Keybinds;
     local Session = {};
     
@@ -150,7 +169,8 @@ local function onChildAdded(Object)
     for kn, kv in pairs(Keys[#IncomingNotes]) do 
         Session[kn] = Enum.KeyCode[ Keybinds[kv].Value ];
     end;
-    
+
+
     local inputFunction = GetInputFunction();
     local begin = Enum.UserInputState.Begin;
     local spawn = task.spawn;
