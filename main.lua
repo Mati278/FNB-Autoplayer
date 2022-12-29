@@ -20,7 +20,7 @@ if SplashIndex == 1 then SplashText = 'hi guys hows doin there' end
 if SplashIndex == 2 then SplashText = 'Did u know that that in terms of male human and female pokemon breeding...' end
 if SplashIndex == 3 then SplashText = 'They took everything from me: my voice, my freedom, my legacy; and they replaced me with some blue haired kid' end
 if SplashIndex == 4 then SplashText = 'discord.gg/pizzahut worst place ever' end
-if SplashIndex == 5 then SplashText = 'amogus ඞ' end
+if SplashIndex == 5 then SplashText = 'amogus ඞ' end --IT FINALLY LOADS THE AMOGUS SYMBOL LETS FUCKING GOOOOOO
 if SplashIndex == 6 then SplashText = 'Go play PFN instead' end
 if SplashIndex == 7 then SplashText = 'swish i fixed the autoplayer for u :)' end
 if SplashIndex == 8 then SplashText = 'nah my man fq0e, kill urself instead u gigantic faggot' end
