@@ -12,7 +12,7 @@ local connections = {
         table.clear(self)
     end
 };
-local spLimit = 11
+local spLimit = 12
 local SplashIndex = math.random(1,spLimit)
 local SplashText
 
@@ -27,6 +27,7 @@ if SplashIndex == 8 then SplashText = 'nah my man fq0e, kill urself instead u gi
 if SplashIndex == 9 then SplashText = 'Friday Night Funkin’: Vs. MX/Mario 85 - Game Over (ft. Kiwiquest) (+ FLP)' end
 if SplashIndex == 10 then SplashText = 'you will to be silenced' end --credits to Oveja3928! (yt)
 if SplashIndex == 11 then SplashText = 'Are u winning, son?' end --credits to Skeleton19!
+if SplashIndex == 12 then SplashText = 'Now █████████████████-proof!' end
 
 local Client = game:GetService'Players'.LocalPlayer
 local Input = Client:WaitForChild"Input"
