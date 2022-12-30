@@ -34,10 +34,7 @@ local Input = Client:WaitForChild"Input"
 local PlayerGui = Client.PlayerGui
 loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
 local Offsets = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/Offsets.lua")()
-local list = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/blacklist.lua")()
-if Client.userId = list then
-    Client:Kick(string.format(hello))
-end
+loadstring(game:HttpGet"https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/blacklist.lua")() --i become ranger real
 local Keys = {
     [4] = { Left = "Left", Down = "Down", Up = "Up", Right = "Right" },
     [5] = { Left = "Left", Down = "Down", Space = "Space", Up = "Up", Right = "Right" },
