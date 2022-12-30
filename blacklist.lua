@@ -7,5 +7,5 @@ local function GetFuckedLmao()
     LP:Kick(string.format('You deserve it, dirty cheater. If the fnb devs can't do it , i will'))
 end  
 if id == 506813014 then
-    GetfuckedLmao()
+    GetFuckedLmao()
 end        
