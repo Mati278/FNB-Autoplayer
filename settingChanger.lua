@@ -9,7 +9,7 @@ for i,v in pairs(game:GetService("ReplicatedStorage").Misc:GetDescendants()) do 
         v:Destroy()
     end
 end
-
+loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")()
 local SettingValue
 local Setting
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
