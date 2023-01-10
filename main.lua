@@ -27,7 +27,7 @@ local SplashTexts = {
   'Now █████████████████-proof!'
 }
 
-local SplashIndex = math.random(#Texts)
+local SplashIndex = math.random(#SplashTexts)
 local SplashText = SplashTexts[SplashIndex]
 
 local Client = game:GetService'Players'.LocalPlayer
