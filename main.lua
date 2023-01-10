@@ -12,22 +12,23 @@ local connections = {
         table.clear(self)
     end
 };
-local spLimit = 12
-local SplashIndex = math.random(1,spLimit)
-local SplashText
+local SplashTexts = {
+  'hi guys hows doin there',
+  'Did u know that that in terms of male human and female pokemon breeding...',
+  'They took everything from me: my voice, my freedom, my legacy; and they replaced me with some blue haired kid',
+  'd'..'iscord.gg/pizzahut worst place ever',
+  'amogus ඞ',
+  'Go play PFN instead, there is a exploit-less botplay',
+  'swish i fixed the autoplayer for u :)',
+  'nah my man fq0e, kill urself instead u gigantic faggot',
+  'Friday Night Funkin’: Vs. MX/Mario 85 - Game Over (ft. Kiwiquest) (+ FLP)',
+  'you will to be silenced',
+  'Are u winning, son?',
+  'Now █████████████████-proof!'
+}
 
-if SplashIndex == 1 then SplashText = 'hi guys hows doin there' end
-if SplashIndex == 2 then SplashText = 'Did u know that that in terms of male human and female pokemon breeding...' end
-if SplashIndex == 3 then SplashText = 'They took everything from me: my voice, my freedom, my legacy; and they replaced me with some blue haired kid' end
-if SplashIndex == 4 then SplashText = 'discord.gg/pizzahut worst place ever' end
-if SplashIndex == 5 then SplashText = 'amogus ඞ' end --IT FINALLY LOADS THE AMOGUS SYMBOL LETS FUCKING GOOOOOO
-if SplashIndex == 6 then SplashText = 'Go play PFN instead, there is a exploit-less botplay' end
-if SplashIndex == 7 then SplashText = 'swish i fixed the autoplayer for u :)' end
-if SplashIndex == 8 then SplashText = 'nah my man fq0e, kill urself instead u gigantic faggot' end
-if SplashIndex == 9 then SplashText = 'Friday Night Funkin’: Vs. MX/Mario 85 - Game Over (ft. Kiwiquest) (+ FLP)' end
-if SplashIndex == 10 then SplashText = 'you will to be silenced' end --credits to Oveja3928! (yt)
-if SplashIndex == 11 then SplashText = 'Are u winning, son?' end --credits to Skeleton19!
-if SplashIndex == 12 then SplashText = 'Now █████████████████-proof!' end
+local SplashIndex = math.random(#Texts)
+local SplashText = SplashTexts[SplashIndex]
 
 local Client = game:GetService'Players'.LocalPlayer
 local Input = Client:WaitForChild"Input"
@@ -77,7 +78,7 @@ local KeybindFolder = Window:MakeTab({Name = "Keybinds", Icon = "rbxassetid://64
 local ExtrasFolder = Window:MakeTab({Name = "Extras", Icon = "rbxassetid://7468828225", PremiumOnly = false})
 local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "hello", Save = true})
 KeybindFolder:AddBind({Name = "Autoplayer toggle", Default = Enum.KeyCode.End, Hold = false, Flag = 'helloT', Save = true, Callback = function() Toggle:Set(not Toggle.Value) end})
-local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -50, Max = 50, Default = 0, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms", Save = true})
+local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -100, Max = 100, Default = 0, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms", Save = true})
 Folder:AddTextbox({Name = "above", Default = "0", extDisappear = false, Callback = function(Value) OffsetToggle:Set(Value) end})
 local Mode = Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode", Save = true})
 local function ModeSwitch()
