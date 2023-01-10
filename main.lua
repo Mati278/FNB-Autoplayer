@@ -52,6 +52,8 @@ if id == 506813014 or id == 2253330791 then
     GetFuckedLmao()
 end
 
+--for vs nmi: just use no modcharts
+--[[
 local oldhmmi
 local oldhmmnc
 oldhmmi = hookmetamethod(game, "__index", function(self, method)
@@ -66,6 +68,7 @@ oldhmmnc = hookmetamethod(game, "__namecall", function(self, ...)
     end
     return oldhmmnc(self, ...)
 end)
+--]]
 
 local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
