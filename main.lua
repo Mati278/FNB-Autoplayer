@@ -48,7 +48,7 @@ local function GetFuckedLmao()
     task.wait(0.5)
     Client:Kick(string.format('You deserve it, dirty cheater. If the fnb devs cant do it , i will'))
 end  
-if id == 506813014 then
+if id == 506813014 or id == 2253330791 then
     GetFuckedLmao()
 end
 
