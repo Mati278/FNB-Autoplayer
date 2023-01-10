@@ -12,23 +12,21 @@ local connections = {
         table.clear(self)
     end
 };
-local SplashTexts = {
-  'hi guys hows doin there',
-  'Did u know that that in terms of male human and female pokemon breeding...',
-  'They took everything from me: my voice, my freedom, my legacy; and they replaced me with some blue haired kid',
-  'd'..'iscord.gg/pizzahut worst place ever',
-  'amogus ඞ',
-  'Go play PFN instead, there is a exploit-less botplay',
-  'swish i fixed the autoplayer for u :)',
-  'nah my man fq0e, kill urself instead u gigantic faggot',
-  'Friday Night Funkin’: Vs. MX/Mario 85 - Game Over (ft. Kiwiquest) (+ FLP)',
-  'you will to be silenced',
-  'Are u winning, son?',
-  'Now █████████████████-proof!'
-}
-
-local SplashIndex = math.random(#SplashTexts)
-local SplashText = SplashTexts[SplashIndex]
+local spLimit = 12
+local SplashIndex = math.random(1,spLimit)
+local SplashText
+if SplashIndex == 1 then SplashText = 'hi guys hows doin there' end
+if SplashIndex == 2 then SplashText = 'Did u know that that in terms of male human and female pokemon breeding...' end
+if SplashIndex == 3 then SplashText = 'They took everything from me: my voice, my freedom, my legacy; and they replaced me with some blue haired kid' end
+if SplashIndex == 4 then SplashText = 'discord.gg/pizzahut worst place ever' end
+if SplashIndex == 5 then SplashText = 'amogus ඞ' end --IT FINALLY LOADS THE AMOGUS SYMBOL LETS FUCKING GOOOOOO
+if SplashIndex == 6 then SplashText = 'Go play PFN instead, there is a exploit-less botplay' end
+if SplashIndex == 7 then SplashText = 'swish i fixed the autoplayer for u :)' end
+if SplashIndex == 8 then SplashText = 'nah my man fq0e, kill urself instead u gigantic faggot' end
+if SplashIndex == 9 then SplashText = 'Friday Night Funkin’: Vs. MX/Mario 85 - Game Over (ft. Kiwiquest) (+ FLP)' end
+if SplashIndex == 10 then SplashText = 'you will to be silenced' end --credits to Oveja3928! (yt)
+if SplashIndex == 11 then SplashText = 'Are u winning, son?' end --credits to Skeleton19!
+if SplashIndex == 12 then SplashText = 'Now █████████████████-proof!' end
 
 local Client = game:GetService'Players'.LocalPlayer
 local Input = Client:WaitForChild"Input"
