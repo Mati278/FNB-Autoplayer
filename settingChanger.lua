@@ -10,16 +10,13 @@ for i,v in pairs(game:GetService("ReplicatedStorage").Misc:GetDescendants()) do 
     end
 end
 loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")()
-local SettingValue
-local Setting
-local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
-local Window = Library:MakeWindow({IntroText = 'yes' ,Name = "fnb setting thing", HidePremium = true})
-local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-Folder:AddTextbox({Name = "Setting value", Default = "1", extDisappear = false, Callback = function(Value) SettingValue = Value end})
-Folder:AddTextbox({Name = "Setting to change", Default = "ScrollSpeed", extDisappear = false, Callback = function(Value) Setting = Value end})
-Folder:AddLabel('You can use Dex to see the available settings!')
+local Library = loadstring(game:HttpGet('https://github.com/wally-rblx/uwuware-ui/edit/main/main.lua'))()
+local Folder = Library:CreateWindow('fnb setting thing')
+Folder:AddBox({ text = 'Setting value', value = 'true', flag = 'SValue' })
+Folder:AddBox({ text = 'Setting value', value = 'Downscroll', flag = 'SName' })
+Folder:AddLabel({text='You can use Dex to see the available settings!'})
 local function Apply()
-    game:GetService'ReplicatedStorage'.Events.RemoteEvent:FireServer("Input", tostring(SettingValue), tostring(Setting))
+    game:GetService'ReplicatedStorage'.Events.RemoteEvent:FireServer("Input", tostring(Library.flags.SValue), tostring(Library.flags.SName))
 end        
-Folder:AddButton({Name = "Apply changes", Callback = function() Apply() Library:MakeNotification({Name = "Done!", Content = "Changes applied. If changes didn't apply the game tried to ban u", Image = "rbxassetid://8370951784", Time = 3}) end})
+Folder:AddButton({text = "Apply changes", callback = function() Apply() Library.notify("Changes applied. If changes didn't apply the game tried to ban u", 2) end})
 Library:Init()
