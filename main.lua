@@ -12,7 +12,7 @@ local connections = {
         table.clear(self)
     end
 };
-local spLimit = 12
+local spLimit = 15
 local SplashIndex = math.random(1,spLimit)
 local SplashText
 if SplashIndex == 1 then SplashText = 'hi guys hows doin there' end
@@ -27,6 +27,9 @@ if SplashIndex == 9 then SplashText = 'Friday Night Funkin’: Vs. MX/Mario 85 -
 if SplashIndex == 10 then SplashText = 'you will to be silenced' end --credits to Oveja3928! (yt)
 if SplashIndex == 11 then SplashText = 'Are u winning, son?' end --credits to Skeleton19!
 if SplashIndex == 12 then SplashText = 'Now █████████████████-proof!' end
+if SplashIndex == 13 then SplashText = 'Testificate: Family guy edition!' end
+if SplashIndex == 14 then SplashText = "The cakes aren't lies here!" end
+if SplashIndex == 15 then SplashText = "Made by professional shitters! :)" end
 
 local Client = game:GetService'Players'.LocalPlayer
 local Input = Client:WaitForChild"Input"
@@ -103,6 +106,13 @@ end})
 ExtrasFolder:AddButton({Name = "Instant Solo", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
 KeybindFolder:AddBind({Name = "Instant Solo", Default = Enum.KeyCode.PageDown, Hold = false, Flag = 'SoloKey', Save = true, Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
 ExtrasFolder:AddButton({Name = "TP to ummm... pink screen with the anticheat music... i guess?", Callback = function() game:GetService'TeleportService':Teleport(9229851010, Client) end})
+ExtrasFolder:AddButton({Name = "Load setting thing", Callback = function() 
+    Library:Destroy()
+    set_identity(7);
+    connections:disconnect();
+    script:Destroy()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/settingChanger.lua')() 
+end})
 ExtrasFolder:AddButton({Name = "Load old version", Callback = function() 
     Library:Destroy()
     set_identity(7);
