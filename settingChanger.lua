@@ -14,7 +14,7 @@ local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/wally
 local Folder = Library:CreateWindow('fnb setting thing')
 Folder:AddBox({ text = 'Setting value', value = 'true', flag = 'SValue' })
 Folder:AddBox({ text = 'Setting value', value = 'Downscroll', flag = 'SName' })
-Folder:AddLabel({text='You can use Dex to see the available settings!'})
+Folder:AddLabel({text='Use Dex to see settings!'})
 local function Apply()
     game:GetService'ReplicatedStorage'.Events.RemoteEvent:FireServer("Input", tostring(Library.flags.SValue), tostring(Library.flags.SName))
 end        
