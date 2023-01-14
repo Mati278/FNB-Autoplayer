@@ -10,7 +10,7 @@ for i,v in pairs(game:GetService("ReplicatedStorage").Misc:GetDescendants()) do 
     end
 end
 loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")()
-local Library = loadstring(game:HttpGet('https://github.com/wally-rblx/uwuware-ui/edit/main/main.lua'))()
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua'))()
 local Folder = Library:CreateWindow('fnb setting thing')
 Folder:AddBox({ text = 'Setting value', value = 'true', flag = 'SValue' })
 Folder:AddBox({ text = 'Setting value', value = 'Downscroll', flag = 'SName' })
