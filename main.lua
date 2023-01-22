@@ -172,11 +172,10 @@ local function onChildAdded(Object)
     end );
       
     if Song then
-        PoisonNotes =
-            (Song.Parent:FindFirstChild"MultiplieGimmickNotes" or Song:FindFirstChild"GimmickNotes" or
-            Song.Parent:FindFirstChild"GimmickNotes" or
-            Song:FindFirstChild"MineNotes" or {} ).Value == "OnHit";
-        print(tostring(Song))
+    	PoisonNotes =
+       		(Song:FindFirstChild"MultipleGimmickNotes" or Song:FindFirstChild"GimmickNotes" or
+     	  	Song:FindFirstChild"MineNotes" or Song.Parent:FindFirstChild"GimmickNotes"
+       	 	or Song.Parent:FindFirstChild"MineNotes" or Song.Parent:FindFirstChild"MultipleGimmickNotes").Value == "OnHit"
     end;
     
     local Keybinds = Input.Keybinds;
@@ -203,7 +202,9 @@ local function onChildAdded(Object)
     
     for _, Holder in pairs(IncomingNotes) do
         connections:add(Holder.ChildAdded, function(Arrow)
-            if (Arrow.HellNote.Value) and (PoisonNotes) or IsOnHit(Arrow:FindFirstChildOfClass"ModuleScript") or (not Arrow.Visible) then return; end;
+            if not Song == "Holy" then --idfk how to get this properly simple yet effective, and yeah im working on the dev song thing well im gonna sleep
+            	if (Arrow.HellNote.Value) and (PoisonNotes) or IsOnHit(Arrow:FindFirstChildOfClass"ModuleScript") or (not Arrow.Visible) then return; end;
+            end
             local Input = Session[Holder.Name];
           
             wait(Offset + Library.Flags["ms"].Value / 1000);
