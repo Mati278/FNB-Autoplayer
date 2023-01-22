@@ -105,13 +105,19 @@ ExtrasFolder:AddButton({Name = "Unload script", Callback = function()
 end})
 ExtrasFolder:AddButton({Name = "Instant Solo", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
 KeybindFolder:AddBind({Name = "Instant Solo", Default = Enum.KeyCode.PageDown, Hold = false, Flag = 'SoloKey', Save = true, Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
-ExtrasFolder:AddButton({Name = "TP to ummm... pink screen with the anticheat music... i guess?", Callback = function() game:GetService'TeleportService':Teleport(9229851010, Client) end})
 ExtrasFolder:AddButton({Name = "Load setting thing", Callback = function() 
     Library:Destroy()
     set_identity(7);
     connections:disconnect();
     script:Destroy()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/settingChanger.lua')() 
+end})
+ExtrasFolder:AddButton({Name = "Load autofarm", Callback = function() 
+    Library:Destroy()
+    set_identity(7);
+    connections:disconnect();
+    script:Destroy()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/AutofarmGUI.lua')() 
 end})
 ExtrasFolder:AddButton({Name = "Load old version", Callback = function() 
     Library:Destroy()
