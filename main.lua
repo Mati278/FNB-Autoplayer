@@ -34,7 +34,6 @@ if SplashIndex == 15 then SplashText = "Made by professional shitters! :)" end
 local Client = game:GetService'Players'.LocalPlayer
 local Input = Client:WaitForChild"Input"
 local PlayerGui = Client.PlayerGui
-loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
 local Offsets = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/Offsets.lua")()
 local Keys = {
     [4] = { Left = "Left", Down = "Down", Up = "Up", Right = "Right" },
@@ -53,8 +52,9 @@ local function GetFuckedLmao()
 end  
 if id == 506813014 or id == 2253330791 then
     GetFuckedLmao()
+else
+    loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
 end
-
 local oldhmmi
 local oldhmmnc
 oldhmmi = hookmetamethod(game, "__index", function(self, method)
