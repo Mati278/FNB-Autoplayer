@@ -1,6 +1,6 @@
-local Song = "RUN"
-local Mod = "Bob's Onslaught"
-local Diff = "Hard"
+local Song = "Rejected"
+local Mod = "(EXCLUSIVE DEMO) FNF Voiid Chronicles"
+local Diff = "Expert"
 
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 local Window = Library:MakeWindow({IntroText = 'its real now' ,Name = "Autofarm GUI Edition (original by stavratum)", HidePremium = true})
