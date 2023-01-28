@@ -73,6 +73,7 @@ local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "he
 Folder:AddBind({Name = "Autoplayer toggle", Default = Enum.KeyCode.End, Hold = false, Callback = function() Toggle:Set(not Toggle.Value) end})
 local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -100, Max = 100, Default = 0, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms"})
 Folder:AddTextbox({Name = "above", Default = "0", extDisappear = false, Callback = function(Value) OffsetToggle:Set(Value) end})
+Folder:AddBind({Name = "Reset", Default = Enum.KeyCode.PageUp, Hold = false, Flag = 'lmao', Save = true, Callback = function() Client.Character:BreakJoints() end})
 Folder:AddButton({Name = "Disable modcharts", Callback = function() loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/haha-hes-not-gonna-find-this/main/thing.lua')() Library:MakeNotification({Name = "Note", Content = "You need to rejoin in order to re-enable modcharts", Image = "rbxassetid://8370951784", Time = 5}) end})
 Folder:AddButton({Name = "Unload script", Callback = function()
     Library:Destroy()
