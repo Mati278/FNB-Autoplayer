@@ -5,10 +5,11 @@ local Diff = "Expert"
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 local Window = Library:MakeWindow({IntroText = 'its real now' ,Name = "Autofarm GUI Edition (original by stavratum)", HidePremium = true})
 local AFolder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
-AFolder:AddTextbox({Name = "Song", Default = "RUN", extDisappear = false, Callback = function(Value) Song = Value end})
-AFolder:AddTextbox({Name = "Mod", Default = "Bob's Onslaught", extDisappear = false, Callback = function(Value) Mod = Value end})      
-AFolder:AddTextbox({Name = "Difficulty", Default = "Hard", extDisappear = false, Callback = function(Value) Diff = Value end})
+AFolder:AddTextbox({Name = "Song", Default = "Rejected", extDisappear = false, Callback = function(Value) Song = Value end})
+AFolder:AddTextbox({Name = "Mod", Default = "(EXCLUSIVE DEMO) FNF Voiid Chronicles", extDisappear = false, Callback = function(Value) Mod = Value end})      
+AFolder:AddTextbox({Name = "Difficulty", Default = "Expert", extDisappear = false, Callback = function(Value) Diff = Value end})
 AFolder:AddDropdown({Name = "Play on side:", Default = "Right", Options = {"Left", "Right"}, Flag = "Side"})
+AFolder:AddToggle({Name = "Enable multiplayer mode (no solo enter)", Default = false, Flag = "multiOn"})
 local stage do 
     local stages = workspace.Stages:GetChildren()
     stage = stages[15]
@@ -209,7 +210,9 @@ end
 
 local function update()
     delay(1, enterStage)
-    Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer()
+    if not Library.Flags["multiOn"].Value then
+    	Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer()
+    end
     delay(2, pickSong)
 end
 
@@ -227,7 +230,7 @@ local ccts = Client.PlayerGui.ChildRemoved:Connect(function(object)
 end)
 
 
-    update()
+update()
 
 
 function _G:Clear()
