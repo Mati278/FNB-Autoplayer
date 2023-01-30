@@ -54,21 +54,22 @@ if id == 506813014 or id == 2253330791 or id == 3386612910 then
     GetFuckedLmao()
 else
     loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
+    local oldhmmi
+    local oldhmmnc
+    oldhmmi = hookmetamethod(game, "__index", function(self, method)
+        if self == Client and method:lower() == "kick" then
+            return error("Expected ':' not '.' calling member function Kick", 2)
+        end
+        return oldhmmi(self, method)
+    end)
+    oldhmmnc = hookmetamethod(game, "__namecall", function(self, ...)
+        if self == Client and getnamecallmethod():lower() == "kick" then
+            return
+        end
+        return oldhmmnc(self, ...)
+    end)
 end
-local oldhmmi
-local oldhmmnc
-oldhmmi = hookmetamethod(game, "__index", function(self, method)
-    if self == Client and method:lower() == "kick" then
-        return error("Expected ':' not '.' calling member function Kick", 2)
-    end
-    return oldhmmi(self, method)
-end)
-oldhmmnc = hookmetamethod(game, "__namecall", function(self, ...)
-    if self == Client and getnamecallmethod():lower() == "kick" then
-        return
-    end
-    return oldhmmnc(self, ...)
-end)
+
 
 local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
