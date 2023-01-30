@@ -44,7 +44,7 @@ local Keys = {
     [9] = { A = "L4", S = "L3", D = "L2", Space = "Space", F = "L1", H = "R1", J = "R2", K = "R3", L = "R4" }
 }
 
-local yeah = Client.userId
+local id = Client.userId
 local function GetFuckedLmao()
     game:GetService("ReplicatedStorage").Events.RemoteEvent:FireServer("Input", "69420", "Points")
     task.wait(0.5)
