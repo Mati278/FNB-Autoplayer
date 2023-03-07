@@ -1,8 +1,5 @@
 if not game:IsLoaded() then game.Loaded:Wait() end
-local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
-local Window = Library:MakeWindow({IntroText = "Maintainment in process, come back later!",Name = "Friday Night Bloxxin' Autoplayer", HidePremium = true, SaveConfig = true, ConfigFolder = 'fnb ap probably'})
-Folder:AddLabel("fnb rewrite is out, when the auto gets fixed everything should be normal")
---[[local connections = {
+local connections = {
     add = function(self, signal, onFire)
         self[#self + 1] = signal:Connect(onFire);
     end,
@@ -14,8 +11,8 @@ Folder:AddLabel("fnb rewrite is out, when the auto gets fixed everything should 
         end
         table.clear(self)
     end
-};
-local spLimit = 15
+}
+local spLimit = 16
 local SplashIndex = math.random(1,spLimit)
 local SplashText
 if SplashIndex == 1 then SplashText = 'hi guys hows doin there' end
@@ -33,11 +30,13 @@ if SplashIndex == 12 then SplashText = 'Now ████████████
 if SplashIndex == 13 then SplashText = 'Testificate: Family guy edition!' end
 if SplashIndex == 14 then SplashText = "The cakes aren't lies here!" end
 if SplashIndex == 15 then SplashText = "Made by professional shitters! :)" end
+if SplashIndex == 15 then SplashText = "me when no rewrite" end
 
 local Client = game:GetService'Players'.LocalPlayer
 local Input = Client:WaitForChild"Input"
 local PlayerGui = Client.PlayerGui
 local Offsets = loadstring(game:HttpGet"https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/Offsets.lua")()
+
 local Keys = {
     [4] = { Left = "Left", Down = "Down", Up = "Up", Right = "Right" },
     [5] = { Left = "Left", Down = "Down", Space = "Space", Up = "Up", Right = "Right" },
@@ -53,7 +52,7 @@ local function GetFuckedLmao()
     task.wait(0.5)
     Client:Kick(string.format('You deserve it, dirty cheater. If the fnb devs cant do it , i will'))
 end  
-if id == 506813014 or id == 2253330791 or id == 3386612910 or id == 2585259934 then
+if id == 506813014 or id == 2253330791 or id == 3386612910 then
     GetFuckedLmao()
 else
     loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
@@ -73,8 +72,9 @@ else
     end)
 end
 
-local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
 
+local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 local Window = Library:MakeWindow({IntroText = tostring(SplashText),Name = "Friday Night Bloxxin' Autoplayer", HidePremium = true, SaveConfig = true, ConfigFolder = 'fnb ap probably'})
 local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://2484564290", PremiumOnly = false})
@@ -122,7 +122,7 @@ ExtrasFolder:AddButton({Name = "Load setting thing", Callback = function()
     script:Destroy()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/settingChanger.lua')() 
 end})
-ExtrasFolder:AddButton({Name = "Load autofarm", Callback = function() 
+ExtrasFolder:AddButton({Name = "Load autofarm (for dev songs)", Callback = function() 
     Library:Destroy()
     set_identity(7);
     connections:disconnect();
@@ -148,6 +148,7 @@ local type    = type;
 local function onChildAdded(Object)
     if (not Object) then return end;
     if (Object.Name ~= "FNFEngine") then return end;
+    Object = Object:WaitForChild("Engine")
     local require = require
     local function IsOnHit(_) return (_ ~= nil and require(_).Type == "OnHit") end;
     
@@ -207,7 +208,6 @@ local function onChildAdded(Object)
         Session[kn] = Enum.KeyCode[ Keybinds[kv].Value ];
     end;
 
-
     local inputFunction = GetInputFunction();
     local begin = Enum.UserInputState.Begin;
     local spawn = task.spawn;
@@ -216,7 +216,6 @@ local function onChildAdded(Object)
     for _, connection in pairs(getconnections(Object.Events.UserInput.OnClientEvent)) do 
         connection:Disable();
     end;
-    
     for _, Holder in pairs(IncomingNotes) do
         connections:add(Holder.ChildAdded, function(Arrow)
             if (Arrow.HellNote.Value) and (PoisonNotes) or IsOnHit(Arrow:FindFirstChildOfClass"ModuleScript") or (not Arrow.Visible) then return; end;
@@ -252,4 +251,3 @@ end;
 
 connections:add(PlayerGui.ChildAdded, onChildAdded);
 task.spawn(onChildAdded, PlayerGui:FindFirstChild"FNFEngine")
---]]
