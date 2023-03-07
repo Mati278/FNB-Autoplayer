@@ -1,5 +1,8 @@
 if not game:IsLoaded() then game.Loaded:Wait() end
-local connections = {
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+local Window = Library:MakeWindow({IntroText = "Maintainment in process, come back later!",Name = "Friday Night Bloxxin' Autoplayer", HidePremium = true, SaveConfig = true, ConfigFolder = 'fnb ap probably'})
+Folder:AddLabel("fnb rewrite is out, when the auto gets fixed everything should be normal")
+--[[local connections = {
     add = function(self, signal, onFire)
         self[#self + 1] = signal:Connect(onFire);
     end,
@@ -70,9 +73,8 @@ else
     end)
 end
 
-
 local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
-local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+
 local Window = Library:MakeWindow({IntroText = tostring(SplashText),Name = "Friday Night Bloxxin' Autoplayer", HidePremium = true, SaveConfig = true, ConfigFolder = 'fnb ap probably'})
 local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://2484564290", PremiumOnly = false})
@@ -250,3 +252,4 @@ end;
 
 connections:add(PlayerGui.ChildAdded, onChildAdded);
 task.spawn(onChildAdded, PlayerGui:FindFirstChild"FNFEngine")
+--]]
