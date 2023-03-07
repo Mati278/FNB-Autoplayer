@@ -95,6 +95,7 @@ local type    = type;
 local function onChildAdded(Object)
     if (not Object) then return end;
     if (Object.Name ~= "FNFEngine") then return end;
+    Object = WaitForChild("Engine")
     local require = require
     local function IsOnHit(_) return (_ ~= nil and require(_).Type == "OnHit") end;
     
