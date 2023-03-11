@@ -1,12 +1,12 @@
 local Song = "Rejected"
-local Mod = "(EXCLUSIVE DEMO) FNF Voiid Chronicles"
+local Mod = "FNF Voiid Chronicles"
 local Diff = "Expert"
 
 local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 local Window = Library:MakeWindow({IntroText = 'its real now' ,Name = "Autofarm GUI Edition (original by stavratum)", HidePremium = true})
 local AFolder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 AFolder:AddTextbox({Name = "Song", Default = "Rejected", extDisappear = false, Callback = function(Value) Song = Value end})
-AFolder:AddTextbox({Name = "Mod", Default = "(EXCLUSIVE DEMO) FNF Voiid Chronicles", extDisappear = false, Callback = function(Value) Mod = Value end})      
+AFolder:AddTextbox({Name = "Mod", Default = "FNF Voiid Chronicles", extDisappear = false, Callback = function(Value) Mod = Value end})      
 AFolder:AddTextbox({Name = "Difficulty", Default = "Expert", extDisappear = false, Callback = function(Value) Diff = Value end})
 AFolder:AddDropdown({Name = "Play on side:", Default = "Right", Options = {"Left", "Right"}, Flag = "Side"})
 AFolder:AddToggle({Name = "Enable multiplayer mode (no solo enter)", Default = false, Flag = "multiOn"})
