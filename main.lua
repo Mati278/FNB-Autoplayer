@@ -149,7 +149,15 @@ local type    = type;
 local function onChildAdded(Object)
     if (not Object) then return end;
     if (Object.Name ~= "FNFEngine") then return end;
-    Object = Object:WaitForChild("Engine")
+    local FNFEngine = PlayerGui:WaitForChild("FNFEngine")
+    local NewEngine = FNFEngine:WaitForChild("Engine")
+    
+    if NewEngine then
+        Object = NewEngine
+    else    
+        Object = FNFEngine
+    end    
+        
     local require = require
     local function IsOnHit(_) return (_ ~= nil and require(_).Type == "OnHit") end;
     
