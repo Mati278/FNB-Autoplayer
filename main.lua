@@ -52,7 +52,7 @@ local function GetFuckedLmao()
     task.wait(0.5)
     Client:Kick(string.format('You deserve it, dirty cheater. If the fnb devs cant do it , i will'))
 end  
-if id == 506813014 or id == 2253330791 or id == 3386612910 then
+if id == 506813014 or id == 2253330791 or id == 3386612910 id == 311949314 then
     GetFuckedLmao()
 else
     loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
@@ -149,13 +149,13 @@ local type    = type;
 local function onChildAdded(Object)
     if (not Object) then return end;
     if (Object.Name ~= "FNFEngine") then return end;
-    local FNFEngine = PlayerGui:WaitForChild("FNFEngine")
-    local NewEngine = FNFEngine:WaitForChild("Engine")
+    local Engine = PlayerGui:WaitForChild("FNFEngine")
+    local NewEngine = Engine:WaitForChild("Engine")
     
-    if NewEngine then
-        Object = NewEngine
+    if not NewEngine then
+        Object = Engine
     else    
-        Object = FNFEngine
+        Object = NewEngine
     end    
         
     local require = require
