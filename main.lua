@@ -52,7 +52,7 @@ local function GetFuckedLmao()
     task.wait(0.5)
     Client:Kick(string.format('You deserve it, dirty cheater. If the fnb devs cant do it , i will'))
 end  
-if id == 506813014 or id == 2253330791 or id == 3386612910 id == 311949314 then
+if id == 506813014 or id == 2253330791 or id == 3386612910 or id == 311949314 then
     GetFuckedLmao()
 else
     loadstring(game:HttpGet"https://raw.githubusercontent.com/stavratum/lua/main/fnb/hooks.lua")() -- robo sucks my dick rn
