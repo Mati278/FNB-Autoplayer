@@ -150,14 +150,17 @@ local function onChildAdded(Object)
     if (not Object) then return end;
     if (Object.Name ~= "FNFEngine") then return end;
     local Engine = PlayerGui:WaitForChild("FNFEngine")
-    local NewEngine = Engine:WaitForChild("Engine")
-    
-    if not NewEngine then
-        Object = Engine
-    else    
-        Object = NewEngine
-    end    
-        
+    local NewEngine = Engine:FindFirstChild("Engine")   
+
+    local function EngineCheck()
+        for i,v in pairs(Engine:GetDescendants()) do --2v2 fix
+            if v:IsA('Folder') then
+                Object = Engine 
+            else
+                Object = NewEngine
+            end
+        end
+    end
     local require = require
     local function IsOnHit(_) return (_ ~= nil and require(_).Type == "OnHit") end;
     
@@ -181,6 +184,8 @@ local function onChildAdded(Object)
         return returns;
     end;
 
+    do EngineCheck() end
+    
     local Stage = Object.Stage.Value;
     while (not Stage.Config.Song.Value) do
         Object.Config.TimePast.Changed:Wait();
