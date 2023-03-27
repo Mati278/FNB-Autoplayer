@@ -81,6 +81,13 @@ local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://248
 local KeybindFolder = Window:MakeTab({Name = "Keybinds", Icon = "rbxassetid://6472846460", PremiumOnly = false})
 local ExtrasFolder = Window:MakeTab({Name = "Extras", Icon = "rbxassetid://7468828225", PremiumOnly = false})
 local Toggle = Folder:AddToggle({Name = "Autoplayer", Default = true, Flag = "hello", Save = true})
+Folder:AddButton({Name = "Load 2v2-only version", Callback = function() 
+    Library:Destroy()
+    set_identity(7);
+    connections:disconnect();
+    script:Destroy()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/2v2FixUntilIDoStuff.lua')() 
+end})
 KeybindFolder:AddBind({Name = "Autoplayer toggle", Default = Enum.KeyCode.End, Hold = false, Flag = 'helloT', Save = true, Callback = function() Toggle:Set(not Toggle.Value) end})
 local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -100, Max = 100, Default = 0, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms", Save = true})
 Folder:AddTextbox({Name = "above", Default = "0", extDisappear = false, Callback = function(Value) OffsetToggle:Set(Value) end})
