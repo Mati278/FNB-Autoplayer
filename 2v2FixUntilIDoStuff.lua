@@ -113,6 +113,13 @@ ExtrasFolder:AddButton({Name = "Unload script", Callback = function()
     connections:disconnect();
     script:Destroy()
 end})
+ExtrasFolder:AddButton({Name = "Reload script (if bot breaks)", Callback = function() 
+    Library:Destroy()
+    set_identity(7);
+    connections:disconnect();
+    script:Destroy()
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/2v2FixUntilIDoStuff.lua')() 
+end})
 ExtrasFolder:AddButton({Name = "dev exclusives getter", Callback = function() game:GetService("ReplicatedStorage").Events.GetExclusives:InvokeServer() end})
 ExtrasFolder:AddButton({Name = "Instant Solo", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
 KeybindFolder:AddBind({Name = "Instant Solo", Default = Enum.KeyCode.PageDown, Hold = false, Flag = 'SoloKey', Save = true, Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
