@@ -141,7 +141,7 @@ ExtrasFolder:AddButton({Name = "Load old version", Callback = function()
     set_identity(7);
     connections:disconnect();
     script:Destroy()
-    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/hello-again-lol/main/real.lua')() 
+    loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/real.lua')() 
 end})
 
 Library:Init()
