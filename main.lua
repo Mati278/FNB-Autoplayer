@@ -119,6 +119,7 @@ ExtrasFolder:AddButton({Name = "Reload script (if bot breaks)", Callback = funct
     script:Destroy()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/main.lua')() 
 end})
+ExtrasFolder:AddToggle({Name = "Hide solo bot tag", Default = false, Flag = "Bot", Save = true})
 ExtrasFolder:AddButton({Name = "TP To N Boss", Callback = function() game:GetService'TeleportService':Teleport(12945374127, Client) end})
 ExtrasFolder:AddButton({Name = "Instant Solo", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
 KeybindFolder:AddBind({Name = "Instant Solo", Default = Enum.KeyCode.PageDown, Hold = false, Flag = 'SoloKey', Save = true, Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
