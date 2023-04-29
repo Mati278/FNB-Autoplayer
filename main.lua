@@ -88,8 +88,9 @@ Folder:AddButton({Name = "Load 2v2-only version", Callback = function()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/2v2FixUntilIDoStuff.lua')() 
 end})
 KeybindFolder:AddBind({Name = "Autoplayer toggle", Default = Enum.KeyCode.End, Hold = false, Flag = 'helloT', Save = true, Callback = function() Toggle:Set(not Toggle.Value) end})
-local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -100, Max = 100, Default = 0, Color = Color3.fromRGB(255,255,255), Increment = 0.1, Flag = "ms", Save = true})
+local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -100, Max = 100, Default = 0, Color = Color3.fromRGB(0,160,255), Increment = 0.1, Flag = "ms", Save = true})
 Folder:AddTextbox({Name = "above", Default = "0", extDisappear = false, Callback = function(Value) OffsetToggle:Set(Value) end})
+Folder:AddSlider({Name = "Release delay", Min = 0, Max = 50, Default = 0, Color = Color3.fromRGB(0,160,255), Increment = 0.1, Flag = "msd", Save = true})
 local Mode = Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode", Save = true})
 local function ModeSwitch()
     if Library.Flags["apMode"].Value == 'Fire Signal' then
@@ -119,7 +120,6 @@ ExtrasFolder:AddButton({Name = "Reload script (if bot breaks)", Callback = funct
     script:Destroy()
     loadstring(game:HttpGet'https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/main.lua')() 
 end})
-ExtrasFolder:AddToggle({Name = "Hide solo bot tag", Default = false, Flag = "Bot", Save = true})
 ExtrasFolder:AddButton({Name = "TP To N Boss", Callback = function() game:GetService'TeleportService':Teleport(12945374127, Client) end})
 ExtrasFolder:AddButton({Name = "Instant Solo", Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
 KeybindFolder:AddBind({Name = "Instant Solo", Default = Enum.KeyCode.PageDown, Hold = false, Flag = 'SoloKey', Save = true, Callback = function() Client.PlayerGui:WaitForChild'SingleplayerUI'.ButtonPressed:FireServer() end})
@@ -233,7 +233,7 @@ local function onChildAdded(Object)
     local begin = Enum.UserInputState.Begin;
     local spawn = task.spawn;
     local wait = task.wait;
-    
+
     for _, connection in pairs(getconnections(Object.Events.UserInput.OnClientEvent)) do 
         connection:Disable();
     end;
@@ -245,21 +245,20 @@ local function onChildAdded(Object)
             wait(Offset + Library.Flags["ms"].Value / 1000);
             if not Library.Flags["hello"].Value then return end                
             if Library.Flags["apMode"].Value == 'Fire Signal' then
-                set_identity(2);
-                    
+                set_identity(2); 
                 spawn(inputFunction, {
                     KeyCode = Input,
                     UserInputState = begin
                 });
-              
+                wait(Library.Flags["msd"].Value / 200)
                 local Bar = Arrow.Frame.Bar;
                 while Bar.Size.Y.Scale >= 0.6 do
                     wait();
                 end
-                
                 spawn(inputFunction, { KeyCode = Input });
             else  
                 VirtualInputManager:SendKeyEvent(true, Input, false, nil);
+                wait(Library.Flags["msd"].Value / 200)
                 local Bar = Arrow.Frame.Bar;
                 while Bar.Size.Y.Scale >= 0.6 do
                     wait();
