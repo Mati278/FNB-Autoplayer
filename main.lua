@@ -1,3 +1,4 @@
+-- USE FLUXUS IN THE MICROSOFT STORE VERSION TO USE !!
 if not game:IsLoaded() then game.Loaded:Wait() end
 local connections = {
     add = function(self, signal, onFire)
@@ -12,7 +13,7 @@ local connections = {
         table.clear(self)
     end
 }
-local spLimit = 16
+local spLimit = 17
 local SplashIndex = math.random(1,spLimit)
 local SplashText
 if SplashIndex == 1 then SplashText = 'hi guys hows doin there' end
@@ -31,6 +32,7 @@ if SplashIndex == 13 then SplashText = 'Testificate: Family guy edition!' end
 if SplashIndex == 14 then SplashText = "The cakes aren't lies here!" end
 if SplashIndex == 15 then SplashText = "Made by professional shitters! :)" end
 if SplashIndex == 15 then SplashText = "me when no rewrite" end
+if SplashIndex == 15 then SplashText = "officilly bypassed lmao" end
 
 local Client = game:GetService'Players'.LocalPlayer
 local Input = Client:WaitForChild"Input"
