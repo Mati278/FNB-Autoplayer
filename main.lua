@@ -31,8 +31,8 @@ if SplashIndex == 12 then SplashText = 'Now ████████████
 if SplashIndex == 13 then SplashText = 'Testificate: Family guy edition!' end
 if SplashIndex == 14 then SplashText = "The cakes aren't lies here!" end
 if SplashIndex == 15 then SplashText = "Made by professional shitters! :)" end
-if SplashIndex == 15 then SplashText = "me when no rewrite" end
-if SplashIndex == 15 then SplashText = "officilly bypassed lmao" end
+if SplashIndex == 16 then SplashText = "me when no rewrite" end
+if SplashIndex == 17 then SplashText = "officilly bypassed lmao" end
 
 local Client = game:GetService'Players'.LocalPlayer
 local Input = Client:WaitForChild"Input"
