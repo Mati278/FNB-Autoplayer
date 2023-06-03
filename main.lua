@@ -1,4 +1,4 @@
--- USE FLUXUS IN THE MICROSOFT STORE VERSION TO USE !!
+-- valyse better
 if not game:IsLoaded() then game.Loaded:Wait() end
 local connections = {
     add = function(self, signal, onFire)
@@ -156,8 +156,9 @@ local task    = task;
 local type    = type;
 
 local function onChildAdded(Object)
-    if (not Object) then return end;
-    if (Object.Name ~= "FNFEngine") then return end;
+    if (not Object) then return end
+    if (Object.Name ~= "FNFEngine") then return end
+    if (tostring(Object) ~= "FNFEngine") then return end
     local Engine = PlayerGui:WaitForChild("FNFEngine")
     local NewEngine = Engine:FindFirstChild("Engine")   
 
