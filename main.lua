@@ -13,7 +13,7 @@ local connections = {
         table.clear(self)
     end
 }
-local spLimit = 17
+local spLimit = 18
 local SplashIndex = math.random(1,spLimit)
 local SplashText
 if SplashIndex == 1 then SplashText = 'hi guys hows doin there' end
@@ -159,7 +159,6 @@ local type    = type;
 local function onChildAdded(Object)
     if (not Object) then return end
     if (Object.Name ~= "FNFEngine") then return end
-    if (tostring(Object) ~= "FNFEngine") then return end
     local Engine = PlayerGui:WaitForChild("FNFEngine")
     local NewEngine = Engine:FindFirstChild("Engine")   
 
