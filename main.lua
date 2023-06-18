@@ -75,7 +75,7 @@ else
 end
 
 local set_identity = (syn and syn.set_thread_identity or setidentity or setthreadcontext);
-local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/uifixed'))()
 local Window = Library:MakeWindow({IntroText = tostring(SplashText),Name = "Friday Night Bloxxin' Autoplayer", HidePremium = true, SaveConfig = true, ConfigFolder = 'fnb ap probably'})
 local Folder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 local CreditsFolder = Window:MakeTab({Name = "Credits", Icon = "rbxassetid://2484564290", PremiumOnly = false})
