@@ -2,7 +2,7 @@ local Song = "Rejected"
 local Mod = "FNF Voiid Chronicles"
 local Diff = "Expert"
 
-local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Mati278/FNB-Autoplayer/main/uifixed'))()
 local Window = Library:MakeWindow({IntroText = 'its real now' ,Name = "Autofarm GUI Edition (original by stavratum)", HidePremium = true})
 local AFolder = Window:MakeTab({Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false})
 AFolder:AddTextbox({Name = "Song", Default = "Rejected", extDisappear = false, Callback = function(Value) Song = Value end})
