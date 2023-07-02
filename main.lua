@@ -92,7 +92,7 @@ end})
 KeybindFolder:AddBind({Name = "Autoplayer toggle", Default = Enum.KeyCode.End, Hold = false, Flag = 'helloT', Save = true, Callback = function() Toggle:Set(not Toggle.Value) end})
 local OffsetToggle = Folder:AddSlider({Name = "Hit offset", Min = -100, Max = 100, Default = 0, Color = Color3.fromRGB(0,160,255), Increment = 0.1, Flag = "ms", Save = true})
 Folder:AddTextbox({Name = "above", Default = "0", extDisappear = false, Callback = function(Value) OffsetToggle:Set(Value) end})
-Folder:AddSlider({Name = "Release delay", Min = 0, Max = 50, Default = 0, Color = Color3.fromRGB(0,160,255), Increment = 0.1, Flag = "msd", Save = true})
+Folder:AddSlider({Name = "Release delay", Min = 0, Max = 100, Default = 0, Color = Color3.fromRGB(0,160,255), Increment = 0.1, Flag = "msd", Save = true})
 local Mode = Folder:AddDropdown({Name = "Hit mode", Default = "Virtual Input", Options = {"Virtual Input", "Fire Signal"}, Flag = "apMode", Save = true})
 local function ModeSwitch()
     if Library.Flags["apMode"].Value == 'Fire Signal' then
